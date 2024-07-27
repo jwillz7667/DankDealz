@@ -5,6 +5,7 @@ import './LoginScreen.css';
 function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const history = useHistory();
 
@@ -13,7 +14,7 @@ function LoginScreen() {
     setError('');
     
     // TODO: Implement actual login logic here
-    console.log('Login attempt with:', { email, password });
+    console.log('Login attempt with:', { email, password, rememberMe });
     
     // For now, we'll just redirect to a hypothetical dashboard
     history.push('/dashboard');
@@ -43,6 +44,16 @@ function LoginScreen() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+        </div>
+        <div className="form-group checkbox">
+          <label>
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            Remember Me
+          </label>
         </div>
         <button type="submit" className="btn btn-primary">Log In</button>
       </form>
