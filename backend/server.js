@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
 
 mongoose.set('strictQuery', false);
 
@@ -10,6 +11,13 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
 
 // Connect to MongoDB
 if (!process.env.MONGODB_URI) {
