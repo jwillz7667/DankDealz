@@ -81,6 +81,10 @@ function SupplierDashboard() {
         <h3>Manage Products</h3>
         <Link to="/supplier/products" className="btn btn-primary">View All Products</Link>
       </div>
+      <div className="manage-orders">
+        <h3>Manage Orders</h3>
+        <Link to="/supplier/orders" className="btn btn-primary">View All Orders</Link>
+      </div>
     </div>
   );
 }

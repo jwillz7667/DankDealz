@@ -7,7 +7,9 @@ const {
   updateProduct, 
   deleteProduct, 
   getSupplierProducts,
-  getSupplierDashboard
+  getSupplierDashboard,
+  getSupplierOrders,
+  updateOrderStatus
 } = require('../controllers/supplierController');
 const { protect, supplierOnly } = require('../middleware/authMiddleware');
 
@@ -20,5 +22,7 @@ router.route('/products/:id')
   .put(protect, supplierOnly, updateProduct)
   .delete(protect, supplierOnly, deleteProduct);
 router.get('/dashboard', protect, supplierOnly, getSupplierDashboard);
+router.get('/orders', protect, supplierOnly, getSupplierOrders);
+router.put('/orders/:id', protect, supplierOnly, updateOrderStatus);
 
 module.exports = router;

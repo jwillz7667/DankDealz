@@ -16,6 +16,7 @@ import OrderDetails from './components/OrderDetails';
 import SupplierDashboard from './components/SupplierDashboard';
 import ProductManagement from './components/ProductManagement';
 import ProductForm from './components/ProductForm';
+import OrderManagement from './components/OrderManagement';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route exact path="/supplier/products" component={ProductManagement} />
           <Route path="/supplier/products/new" component={ProductForm} />
           <Route path="/supplier/products/:id/edit" component={ProductForm} />
+          <Route path="/supplier/orders" component={OrderManagement} />
         </Switch>
       </div>
     </Router>

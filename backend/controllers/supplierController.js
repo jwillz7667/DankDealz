@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const Product = require('../models/productModel');
 const Order = require('../models/orderModel');
+const User = require('../models/userModel');
 
 // @desc    Register as a supplier
 // @route   POST /api/suppliers/register
@@ -156,11 +157,52 @@ const getSupplierProducts = async (req, res) => {
   res.json(products);
 };
 
+const getSupplierOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ 'orderItems.product': { $in: await Product.find({ supplier: req.user._id }).select('_id') } })
+      .populate('user', 'name email')
+      .sort('-createdAt');
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+const updateOrderStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const order = await Order.findById(id);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    // Check if the supplier owns any product in the order
+    const hasProduct = order.orderItems.some(item => 
+      item.product.toString() === req.user._id.toString()
+    );
+
+    if (!hasProduct) {
+      return res.status(403).json({ message: 'Not authorized to update this order' });
+    }
+
+    order.status = status;
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
 module.exports = { 
   registerSupplier, 
   updateSupplierProfile, 
   addProduct, 
   updateProduct, 
   deleteProduct, 
-  getSupplierProducts 
+  getSupplierProducts,
+  getSupplierOrders,
+  updateOrderStatus
 };
