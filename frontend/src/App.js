@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import WelcomeScreen from './components/WelcomeScreen';
 import LoginScreen from './components/LoginScreen';
 import RegistrationForm from './components/RegistrationForm';
@@ -21,31 +21,29 @@ import AnalyticsDashboard from './components/AnalyticsDashboard';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route exact path="/" component={WelcomeScreen} />
-          <Route path="/login" component={LoginScreen} />
-          <Route path="/register" component={RegistrationForm} />
-          <Route path="/verify" component={EmailVerificationScreen} />
-          <Route path="/profile-setup" component={ProfileSetup} />
-          <Route path="/home" component={HomeScreen} />
-          <Route exact path="/products" component={ProductList} />
-          <Route path="/products/:id" component={ProductDetails} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/order-confirmation" component={OrderConfirmation} />
-          <Route path="/profile" component={UserProfile} />
-          <Route path="/order/:id" component={OrderDetails} />
-          <Route path="/supplier/dashboard" component={SupplierDashboard} />
-          <Route exact path="/supplier/products" component={ProductManagement} />
-          <Route path="/supplier/products/new" component={ProductForm} />
-          <Route path="/supplier/products/:id/edit" component={ProductForm} />
-          <Route path="/supplier/orders" component={OrderManagement} />
-          <Route path="/supplier/analytics" component={AnalyticsDashboard} />
-        </Routes>
-      </div>
-    </Router>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<WelcomeScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/register" element={<RegistrationForm />} />
+        <Route path="/verify" element={<EmailVerificationScreen />} />
+        <Route path="/profile-setup" element={<ProfileSetup />} />
+        <Route path="/home" element={<HomeScreen />} />
+        <Route path="/products" element={<ProductList />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/order/:id" element={<OrderDetails />} />
+        <Route path="/supplier/dashboard" element={<SupplierDashboard />} />
+        <Route path="/supplier/products" element={<ProductManagement />} />
+        <Route path="/supplier/products/new" element={<ProductForm />} />
+        <Route path="/supplier/products/:id/edit" element={<ProductForm />} />
+        <Route path="/supplier/orders" element={<OrderManagement />} />
+        <Route path="/supplier/analytics" element={<AnalyticsDashboard />} />
+      </Routes>
+    </div>
   );
 }
 
