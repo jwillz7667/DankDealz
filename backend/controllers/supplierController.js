@@ -24,46 +24,6 @@ const registerSupplier = async (req, res) => {
   res.json({ message: 'Successfully registered as a supplier', user });
 };
 
-// @desc    Get supplier dashboard data
-// @route   GET /api/suppliers/dashboard
-// @access  Private/Supplier
-const getSupplierDashboard = async (req, res) => {
-  const supplierId = req.user._id;
-
-  // Get total sales and revenue
-  const orders = await Order.find({ 'orderItems.product': { $in: await Product.find({ supplier: supplierId }).select('_id') } });
-  const sales = orders.length;
-  const revenue = orders.reduce((acc, order) => acc + order.totalPrice, 0);
-
-  // Get popular products
-  const popularProducts = await Product.aggregate([
-    { $match: { supplier: supplierId } },
-    { $project: { name: 1, soldCount: { $size: '$sales' } } },
-    { $sort: { soldCount: -1 } },
-    { $limit: 5 }
-  ]);
-
-  // Get pending orders
-  const pendingOrders = await Order.find({ 
-    'orderItems.product': { $in: await Product.find({ supplier: supplierId }).select('_id') },
-    status: 'pending'
-  }).select('orderNumber totalPrice');
-
-  // Get low stock alerts
-  const lowStockThreshold = 10; // You can adjust this value as needed
-  const lowStockAlerts = await Product.find({ 
-    supplier: supplierId,
-    stockQuantity: { $lt: lowStockThreshold }
-  }).select('name stockQuantity');
-
-  res.json({
-    sales,
-    revenue,
-    popularProducts,
-    pendingOrders,
-    lowStockAlerts
-  });
-};
 
 // @desc    Update supplier profile
 // @route   PUT /api/suppliers/profile
