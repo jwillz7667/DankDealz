@@ -5,6 +5,7 @@ import LoginScreen from './components/LoginScreen';
 import RegistrationForm from './components/RegistrationForm';
 import EmailVerificationScreen from './components/EmailVerificationScreen';
 import ProfileSetup from './components/ProfileSetup';
+import HomeScreen from './components/HomeScreen';
 import ProductList from './components/ProductList';
 import ProductDetails from './components/ProductDetails';
 import Cart from './components/Cart';
@@ -21,6 +22,7 @@ function App() {
           <Route path="/register" component={RegistrationForm} />
           <Route path="/verify" component={EmailVerificationScreen} />
           <Route path="/profile-setup" component={ProfileSetup} />
+          <Route path="/home" component={HomeScreen} />
           <Route exact path="/products" component={ProductList} />
           <Route path="/products/:id" component={ProductDetails} />
           <Route path="/cart" component={Cart} />
