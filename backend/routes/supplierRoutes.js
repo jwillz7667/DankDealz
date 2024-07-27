@@ -25,4 +25,7 @@ router.get('/dashboard', protect, supplierOnly, getSupplierDashboard);
 router.get('/orders', protect, supplierOnly, getSupplierOrders);
 router.put('/orders/:id', protect, supplierOnly, updateOrderStatus);
 
+// Add this line to export the router
+module.exports = router;
+
 module.exports = router;
