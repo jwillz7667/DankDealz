@@ -18,9 +18,8 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch((err) => console.error('MongoDB connection error:', err));
 
 // Routes
-const { userRouter, supplierRouter } = require('./routes/userRoutes');
-app.use('/api/users', userRouter);
-app.use('/api/suppliers', supplierRouter);
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/suppliers', require('./routes/supplierRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 
