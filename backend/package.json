@@ -19,7 +19,8 @@
     "cors": "^2.8.5",
     "stripe": "^12.14.0",
     "nth-check": "^2.0.1",
-    "postcss": "^8.4.31"
+    "postcss": "^8.4.31",
+    "express-rate-limit": "^6.7.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
