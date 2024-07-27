@@ -19,7 +19,9 @@
     "axios": "^1.4.0",
     "@stripe/stripe-js": "^1.54.1",
     "@stripe/react-stripe-js": "^2.1.1",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "nth-check": "^2.0.1",
+    "postcss": "^8.4.31"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.17.0",
