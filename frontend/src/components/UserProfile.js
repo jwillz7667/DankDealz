@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import './UserProfile.css';
 import CurrentOrders from './CurrentOrders';
 import OrderHistory from './OrderHistory';
@@ -10,7 +9,6 @@ function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
