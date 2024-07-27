@@ -12,7 +12,7 @@ function RegistrationForm() {
     agreeToTerms: false
   });
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
