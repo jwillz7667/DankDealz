@@ -77,6 +77,10 @@ function SupplierDashboard() {
           ))}
         </ul>
       </div>
+      <div className="manage-products">
+        <h3>Manage Products</h3>
+        <Link to="/supplier/products" className="btn btn-primary">View All Products</Link>
+      </div>
     </div>
   );
 }

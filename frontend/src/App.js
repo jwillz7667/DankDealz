@@ -13,6 +13,9 @@ import Checkout from './components/Checkout';
 import OrderConfirmation from './components/OrderConfirmation';
 import UserProfile from './components/UserProfile';
 import OrderDetails from './components/OrderDetails';
+import SupplierDashboard from './components/SupplierDashboard';
+import ProductManagement from './components/ProductManagement';
+import ProductForm from './components/ProductForm';
 
 function App() {
   return (
@@ -32,6 +35,10 @@ function App() {
           <Route path="/order-confirmation" component={OrderConfirmation} />
           <Route path="/profile" component={UserProfile} />
           <Route path="/order/:id" component={OrderDetails} />
+          <Route path="/supplier/dashboard" component={SupplierDashboard} />
+          <Route exact path="/supplier/products" component={ProductManagement} />
+          <Route path="/supplier/products/new" component={ProductForm} />
+          <Route path="/supplier/products/:id/edit" component={ProductForm} />
         </Switch>
       </div>
     </Router>
