@@ -12,6 +12,7 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import OrderConfirmation from './components/OrderConfirmation';
 import UserProfile from './components/UserProfile';
+import OrderDetails from './components/OrderDetails';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/checkout" component={Checkout} />
           <Route path="/order-confirmation" component={OrderConfirmation} />
           <Route path="/profile" component={UserProfile} />
+          <Route path="/order/:id" component={OrderDetails} />
         </Switch>
       </div>
     </Router>
