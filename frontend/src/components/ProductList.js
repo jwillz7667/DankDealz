@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './ProductList.css';
+import QuickView from './QuickView';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -12,6 +13,8 @@ function ProductList() {
   const [sortBy, setSortBy] = useState('popularity');
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [thcContent, setThcContent] = useState([0, 100]);
+  const [viewMode, setViewMode] = useState('grid');
+  const [quickViewProduct, setQuickViewProduct] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,6 +48,14 @@ function ProductList() {
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
+  };
+
+  const openQuickView = (product) => {
+    setQuickViewProduct(product);
+  };
+
+  const closeQuickView = () => {
+    setQuickViewProduct(null);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -108,21 +119,32 @@ function ProductList() {
           />
           <span>{thcContent[0]}% - {thcContent[1]}%</span>
         </div>
+        <div className="view-mode">
+          <button onClick={() => setViewMode('grid')} className={viewMode === 'grid' ? 'active' : ''}>Grid</button>
+          <button onClick={() => setViewMode('list')} className={viewMode === 'list' ? 'active' : ''}>List</button>
+        </div>
       </div>
-      <div className="products-grid">
+      <div className={`products-${viewMode}`}>
         {products.map((product) => (
-          <div key={product._id} className="product-card">
-            <Link to={`/products/${product._id}`}>
-              <img src={product.image} alt={product.name} />
+          <div key={product._id} className={`product-${viewMode}-item`}>
+            <img src={product.image} alt={product.name} />
+            <div className="product-info">
               <h3>{product.name}</h3>
               <p>${product.price}</p>
               <p>Rating: {product.rating}</p>
               <p>THC: {product.thcContent}%</p>
-            </Link>
-            <button onClick={() => addToCart(product._id)}>Add to Cart</button>
+              <div className="product-actions">
+                <Link to={`/products/${product._id}`}>View Details</Link>
+                <button onClick={() => openQuickView(product)}>Quick View</button>
+                <button onClick={() => addToCart(product._id)}>Add to Cart</button>
+              </div>
+            </div>
           </div>
         ))}
       </div>
+      {quickViewProduct && (
+        <QuickView product={quickViewProduct} onClose={closeQuickView} addToCart={addToCart} />
+      )}
     </div>
   );
 }
