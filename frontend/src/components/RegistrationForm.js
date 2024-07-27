@@ -50,7 +50,7 @@ function RegistrationForm() {
     try {
       const response = await axios.post('/api/users/register', formData);
       console.log('Registration successful:', response.data);
-      history.push('/verify');
+      navigate('/verify');
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred during registration');
     }

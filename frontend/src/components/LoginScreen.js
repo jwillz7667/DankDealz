@@ -17,7 +17,7 @@ function LoginScreen() {
     console.log('Login attempt with:', { email, password, rememberMe });
     
     // For now, we'll just redirect to a hypothetical dashboard
-    history.push('/dashboard');
+    navigate('/dashboard');
   };
 
   return (

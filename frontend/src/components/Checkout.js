@@ -46,17 +46,14 @@ function Checkout() {
 
         // Handle successful payment
         console.log('Payment successful', data);
-        history.push({
-          pathname: '/order-confirmation',
-          state: { order: data.order }
-        });
+        navigate('/order-confirmation', { state: { order: data.order } });
       } catch (error) {
         console.error('Payment failed', error);
       }
     } else {
       // Handle other payment methods
       console.log('Processing payment with', paymentMethod);
-      history.push('/order-confirmation');
+      navigate('/order-confirmation');
     }
   };
 

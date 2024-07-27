@@ -54,7 +54,7 @@ function ProductForm() {
           headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
         });
       }
-      history.push('/supplier/products');
+      navigate('/supplier/products');
     } catch (error) {
       setError('Failed to save product');
     }

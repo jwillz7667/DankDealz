@@ -30,7 +30,7 @@ function ProductDetails() {
   const addToCart = () => {
     // Implement add to cart functionality
     console.log(`Added ${quantity} of ${product.name} to cart`);
-    history.push('/cart');
+    navigate('/cart');
   };
 
   const saveForLater = () => {

@@ -22,7 +22,7 @@ function ProfileSetup() {
     // Here you would typically send the profile data to your backend API
     console.log('Profile setup submitted:', profileData);
     // For now, we'll just redirect to the home page
-    history.push('/');
+    navigate('/');
   };
 
   return (
