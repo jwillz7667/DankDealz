@@ -81,4 +81,19 @@ const createProductReview = async (req, res) => {
   }
 };
 
-module.exports = { getProducts, getProductById, createProductReview };
+// @desc    Get home page data
+// @route   GET /api/products/home
+// @access  Public
+const getHomePageData = async (req, res) => {
+  const featuredProducts = await Product.find({ isFeatured: true }).limit(5);
+  const dealsOfTheDay = await Product.find({ isOnSale: true }).limit(5);
+  const recommendations = await Product.find().sort({ rating: -1 }).limit(5);
+
+  res.json({
+    featuredProducts,
+    dealsOfTheDay,
+    recommendations,
+  });
+};
+
+module.exports = { getProducts, getProductById, createProductReview, getHomePageData };
