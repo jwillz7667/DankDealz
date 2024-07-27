@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import './UserProfile.css';
 import CurrentOrders from './CurrentOrders';
+import OrderHistory from './OrderHistory';
 
 function UserProfile() {
   const [user, setUser] = useState(null);
@@ -106,10 +107,7 @@ function UserProfile() {
         </div>
       )}
       <CurrentOrders />
-      <div>
-        <h3>Order History</h3>
-        {/* Implement order history component here */}
-      </div>
+      <OrderHistory />
       <div>
         <h3>Saved Addresses</h3>
         {/* Implement saved addresses component here */}
