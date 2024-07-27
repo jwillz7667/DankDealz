@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../apiConfig';
 import './LoginScreen.css';
 
 function LoginScreen() {
@@ -13,11 +14,16 @@ function LoginScreen() {
     e.preventDefault();
     setError('');
     
-    // TODO: Implement actual login logic here
-    console.log('Login attempt with:', { email, password, rememberMe });
-    
-    // For now, we'll just redirect to a hypothetical dashboard
-    navigate('/dashboard');
+    try {
+      const response = await api.post('/users/login', { email, password });
+      localStorage.setItem('userToken', response.data.token);
+      if (rememberMe) {
+        // Implement remember me functionality
+      }
+      navigate('/dashboard');
+    } catch (error) {
+      setError(error.response?.data?.message || 'An error occurred during login');
+    }
   };
 
   return (
