@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import './UserProfile.css';
+import CurrentOrders from './CurrentOrders';
 
 function UserProfile() {
   const [user, setUser] = useState(null);
@@ -104,6 +105,7 @@ function UserProfile() {
           <button onClick={() => setEditMode(true)}>Edit Profile</button>
         </div>
       )}
+      <CurrentOrders />
       <div>
         <h3>Order History</h3>
         {/* Implement order history component here */}
