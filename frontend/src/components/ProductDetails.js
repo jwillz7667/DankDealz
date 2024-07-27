@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetails.css';
 
 function ProductDetails() {
@@ -10,7 +10,7 @@ function ProductDetails() {
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(0);
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {

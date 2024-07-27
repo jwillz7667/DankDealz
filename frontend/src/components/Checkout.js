@@ -12,7 +12,7 @@ function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [promoCode, setPromoCode] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
 

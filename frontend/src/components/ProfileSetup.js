@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileSetup() {
   const [profileData, setProfileData] = useState({
@@ -7,7 +7,7 @@ function ProfileSetup() {
     deliveryAddress: ''
   });
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
