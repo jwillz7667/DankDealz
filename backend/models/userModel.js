@@ -15,6 +15,10 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  dateOfBirth: {
+    type: Date,
+    required: true
+  },
   isSupplier: {
     type: Boolean,
     required: true,

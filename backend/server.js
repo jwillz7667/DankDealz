@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/suppliers', require('./routes/supplierRoutes'));
+app.use('/api/suppliers', require('./routes/userRoutes').supplierRouter);
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 

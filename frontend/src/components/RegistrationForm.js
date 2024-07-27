@@ -7,6 +7,7 @@ function RegistrationForm() {
     email: '',
     password: '',
     confirmPassword: '',
+    dateOfBirth: '',
     agreeToTerms: false
   });
 
@@ -62,6 +63,13 @@ function RegistrationForm() {
           value={formData.confirmPassword}
           onChange={handleChange}
           placeholder="Confirm Password"
+          required
+        />
+        <input
+          type="date"
+          name="dateOfBirth"
+          value={formData.dateOfBirth}
+          onChange={handleChange}
           required
         />
         <label>
