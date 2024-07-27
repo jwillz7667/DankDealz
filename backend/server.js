@@ -34,6 +34,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.error('MongoDB connection error:', err);
   console.error('Please make sure your IP address is whitelisted in MongoDB Atlas');
   console.error('and that your connection string is correct in the .env file.');
+  console.error('Your current IP address is:', require('os').networkInterfaces().en0[1].address);
   process.exit(1);
 });
 
