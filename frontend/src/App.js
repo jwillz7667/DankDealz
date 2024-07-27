@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomeScreen from './components/WelcomeScreen';
 import LoginScreen from './components/LoginScreen';
 import RegistrationForm from './components/RegistrationForm';
@@ -23,7 +23,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
+        <Routes>
           <Route exact path="/" component={WelcomeScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegistrationForm} />
@@ -43,7 +43,7 @@ function App() {
           <Route path="/supplier/products/:id/edit" component={ProductForm} />
           <Route path="/supplier/orders" component={OrderManagement} />
           <Route path="/supplier/analytics" component={AnalyticsDashboard} />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );
