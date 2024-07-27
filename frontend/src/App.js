@@ -4,6 +4,10 @@ import WelcomeScreen from './components/WelcomeScreen';
 import RegistrationForm from './components/RegistrationForm';
 import VerificationScreen from './components/VerificationScreen';
 import ProfileSetup from './components/ProfileSetup';
+import ProductList from './components/ProductList';
+import ProductDetails from './components/ProductDetails';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
 
 function App() {
   return (
@@ -14,6 +18,10 @@ function App() {
           <Route path="/register" component={RegistrationForm} />
           <Route path="/verify" component={VerificationScreen} />
           <Route path="/profile-setup" component={ProfileSetup} />
+          <Route exact path="/products" component={ProductList} />
+          <Route path="/products/:id" component={ProductDetails} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/checkout" component={Checkout} />
         </Switch>
       </div>
     </Router>
