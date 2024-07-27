@@ -6,8 +6,9 @@ function WelcomeScreen() {
   return (
     <div className="welcome-screen">
       <img src="/logo.png" alt="Dank Deals Logo" className="logo" />
-      <h1>Welcome to Dank Deals</h1>
-      <p>Your one-stop shop for recreational marijuana delivery</p>
+      <h1>Dank Deals</h1>
+      <p className="tagline">Elevate Your Experience</p>
+      <p className="description">Your one-stop shop for premium recreational marijuana delivery</p>
       <div className="button-container">
         <Link to="/register" className="btn btn-primary">Sign Up</Link>
         <Link to="/login" className="btn btn-secondary">Log In</Link>
