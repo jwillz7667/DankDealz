@@ -1,5 +1,4 @@
 const User = require('../models/userModel');
-const Order = require('../models/orderModel');
 const generateToken = require('../utils/generateToken');
 
 // @desc    Register a new user
@@ -130,6 +129,7 @@ const updateUserProfile = async (req, res) => {
 // @route   GET /api/users/orders
 // @access  Private
 const getUserOrders = async (req, res) => {
+  const Order = require('../models/orderModel');
   const orders = await Order.find({ user: req.user._id });
   res.json(orders);
 };
