@@ -8,13 +8,21 @@ const stripePromise = loadStripe('your_stripe_publishable_key');
 
 function Checkout() {
   const [address, setAddress] = useState('');
+  const [deliveryTime, setDeliveryTime] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('card');
+  const [promoCode, setPromoCode] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   const history = useHistory();
   const stripe = useStripe();
   const elements = useElements();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!agreeToTerms) {
+      alert('Please agree to the Terms of Service');
+      return;
+    }
 
     if (paymentMethod === 'card') {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -31,6 +39,9 @@ function Checkout() {
         const { data } = await axios.post('/api/payment/process', {
           amount: 1000, // Replace with actual order total
           paymentMethodId: paymentMethod.id,
+          address,
+          deliveryTime,
+          promoCode
         });
 
         // Handle successful payment
@@ -61,6 +72,21 @@ function Checkout() {
           />
         </div>
         <div>
+          <label htmlFor="deliveryTime">Delivery Time:</label>
+          <select
+            id="deliveryTime"
+            value={deliveryTime}
+            onChange={(e) => setDeliveryTime(e.target.value)}
+            required
+          >
+            <option value="">Select a delivery time</option>
+            <option value="asap">As soon as possible</option>
+            <option value="1hour">Within 1 hour</option>
+            <option value="2hours">Within 2 hours</option>
+            <option value="3hours">Within 3 hours</option>
+          </select>
+        </div>
+        <div>
           <label htmlFor="paymentMethod">Payment Method:</label>
           <select
             id="paymentMethod"
@@ -77,6 +103,30 @@ function Checkout() {
             <CardElement />
           </div>
         )}
+        <div>
+          <label htmlFor="promoCode">Promo Code:</label>
+          <input
+            type="text"
+            id="promoCode"
+            value={promoCode}
+            onChange={(e) => setPromoCode(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={agreeToTerms}
+              onChange={(e) => setAgreeToTerms(e.target.checked)}
+              required
+            />
+            I agree to the <a href="/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+          </label>
+        </div>
+        <div className="order-summary">
+          <h2>Order Summary</h2>
+          {/* Add order summary details here */}
+        </div>
         <button type="submit">Place Order</button>
       </form>
     </div>
