@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Order = require('../models/orderModel');
 const generateToken = require('../utils/generateToken');
 
 // @desc    Register a new user
@@ -58,6 +59,7 @@ const loginUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      isSupplier: user.isSupplier,
       token: generateToken(user._id),
     });
   } else {
@@ -78,6 +80,10 @@ const getUserProfile = async (req, res) => {
       name: user.name,
       email: user.email,
       dateOfBirth: user.dateOfBirth,
+      isSupplier: user.isSupplier,
+      profilePicture: user.profilePicture,
+      deliveryAddress: user.deliveryAddress,
+      phoneNumber: user.phoneNumber,
     });
   } else {
     res.status(404);
@@ -85,4 +91,47 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getUserProfile };
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+const updateUserProfile = async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.profilePicture = req.body.profilePicture || user.profilePicture;
+    user.deliveryAddress = req.body.deliveryAddress || user.deliveryAddress;
+    user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isSupplier: updatedUser.isSupplier,
+      profilePicture: updatedUser.profilePicture,
+      deliveryAddress: updatedUser.deliveryAddress,
+      phoneNumber: updatedUser.phoneNumber,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
+
+// @desc    Get user order history
+// @route   GET /api/users/orders
+// @access  Private
+const getUserOrders = async (req, res) => {
+  const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+};
+
+module.exports = { registerUser, loginUser, getUserProfile, updateUserProfile, getUserOrders };
