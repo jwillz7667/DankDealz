@@ -9,7 +9,8 @@ const {
   getSupplierProducts,
   getSupplierDashboard,
   getSupplierOrders,
-  updateOrderStatus
+  updateOrderStatus,
+  getAnalytics
 } = require('../controllers/supplierController');
 const { protect, supplierOnly } = require('../middleware/authMiddleware');
 
@@ -24,5 +25,6 @@ router.route('/products/:id')
 router.get('/dashboard', protect, supplierOnly, getSupplierDashboard);
 router.get('/orders', protect, supplierOnly, getSupplierOrders);
 router.put('/orders/:id', protect, supplierOnly, updateOrderStatus);
+router.get('/analytics', protect, supplierOnly, getAnalytics);
 
 module.exports = router;

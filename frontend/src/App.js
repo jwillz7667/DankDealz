@@ -17,6 +17,7 @@ import SupplierDashboard from './components/SupplierDashboard';
 import ProductManagement from './components/ProductManagement';
 import ProductForm from './components/ProductForm';
 import OrderManagement from './components/OrderManagement';
+import AnalyticsDashboard from './components/AnalyticsDashboard';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/supplier/products/new" component={ProductForm} />
           <Route path="/supplier/products/:id/edit" component={ProductForm} />
           <Route path="/supplier/orders" component={OrderManagement} />
+          <Route path="/supplier/analytics" component={AnalyticsDashboard} />
         </Switch>
       </div>
     </Router>

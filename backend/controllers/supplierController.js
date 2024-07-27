@@ -196,6 +196,62 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
+const getAnalytics = async (req, res) => {
+  try {
+    const supplierId = req.user._id;
+
+    // Get sales data for the last 30 days
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const salesData = await Order.aggregate([
+      { $match: { 'orderItems.product': { $in: await Product.find({ supplier: supplierId }).select('_id') }, createdAt: { $gte: thirtyDaysAgo } } },
+      { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, totalSales: { $sum: "$totalPrice" } } },
+      { $sort: { _id: 1 } }
+    ]);
+
+    // Get product performance data
+    const productPerformance = await Product.aggregate([
+      { $match: { supplier: supplierId } },
+      { $project: { name: 1, soldCount: { $size: '$sales' } } },
+      { $sort: { soldCount: -1 } },
+      { $limit: 10 }
+    ]);
+
+    // Get customer feedback summary
+    const customerFeedback = await Product.aggregate([
+      { $match: { supplier: supplierId } },
+      { $project: { name: 1, reviews: 1 } },
+      { $unwind: '$reviews' },
+      { $group: { _id: '$_id', productName: { $first: '$name' }, averageRating: { $avg: '$reviews.rating' }, totalReviews: { $sum: 1 } } },
+      { $sort: { averageRating: -1 } },
+      { $limit: 10 }
+    ]);
+
+    res.json({
+      salesData: {
+        labels: salesData.map(item => item._id),
+        datasets: [{
+          label: 'Sales',
+          data: salesData.map(item => item.totalSales),
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        }]
+      },
+      productPerformance: {
+        labels: productPerformance.map(item => item.name),
+        datasets: [{
+          label: 'Units Sold',
+          data: productPerformance.map(item => item.soldCount),
+          backgroundColor: 'rgba(75, 192, 192, 0.6)'
+        }]
+      },
+      customerFeedback
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
 module.exports = { 
   registerSupplier, 
   updateSupplierProfile, 
@@ -204,5 +260,6 @@ module.exports = {
   deleteProduct, 
   getSupplierProducts,
   getSupplierOrders,
-  updateOrderStatus
+  updateOrderStatus,
+  getAnalytics
 };
