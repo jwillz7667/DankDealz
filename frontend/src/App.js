@@ -10,6 +10,7 @@ import ProductList from './components/ProductList';
 import ProductDetails from './components/ProductDetails';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
+import OrderConfirmation from './components/OrderConfirmation';
 import UserProfile from './components/UserProfile';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/products/:id" component={ProductDetails} />
           <Route path="/cart" component={Cart} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/order-confirmation" component={OrderConfirmation} />
           <Route path="/profile" component={UserProfile} />
         </Switch>
       </div>

@@ -46,7 +46,10 @@ function Checkout() {
 
         // Handle successful payment
         console.log('Payment successful', data);
-        history.push('/order-confirmation');
+        history.push({
+          pathname: '/order-confirmation',
+          state: { order: data.order }
+        });
       } catch (error) {
         console.error('Payment failed', error);
       }
