@@ -1,7 +1,6 @@
 const User = require('../models/userModel');
 const Product = require('../models/productModel');
 const Order = require('../models/orderModel');
-const User = require('../models/userModel');
 
 // @desc    Register as a supplier
 // @route   POST /api/suppliers/register
