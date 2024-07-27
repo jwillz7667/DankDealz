@@ -1,0 +1,111 @@
+.product-details {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.image-gallery {
+  flex: 1;
+  max-width: 500px;
+  margin-right: 20px;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.thumbnail.active {
+  border-color: #4CAF50;
+}
+
+.product-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.price {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.rating {
+  margin-bottom: 20px;
+}
+
+.description, .lab-results {
+  margin-bottom: 20px;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.quantity-selector label {
+  margin-right: 10px;
+}
+
+.quantity-selector input {
+  width: 60px;
+  padding: 5px;
+}
+
+.add-to-cart-btn, .save-for-later-btn {
+  padding: 10px 20px;
+  font-size: 1em;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.add-to-cart-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.save-for-later-btn {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+.reviews {
+  width: 100%;
+  margin-top: 40px;
+}
+
+.review {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.reviewer-name {
+  font-weight: bold;
+}
+
+.review-rating {
+  color: #f39c12;
+}
+
+.related-products {
+  width: 100%;
+  margin-top: 40px;
+}
