@@ -11,7 +11,8 @@ function RegistrationForm() {
     dateOfBirth: '',
     agreeToTerms: false
   });
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const { register } = useAuth();
 
@@ -21,6 +22,8 @@ function RegistrationForm() {
       ...prevState,
       [name]: type === 'checkbox' ? checked : value
     }));
+    // Clear the error for this field when it's changed
+    setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
   };
 
   const validateAge = (dateOfBirth) => {
@@ -34,32 +37,43 @@ function RegistrationForm() {
     return age >= 21;
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
+    if (!formData.password) newErrors.password = 'Password is required';
+    else if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
+    if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of Birth is required';
+    else if (!validateAge(formData.dateOfBirth)) newErrors.dateOfBirth = 'You must be 21 years or older to register';
+    if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to the Terms of Service and Privacy Policy';
+    return newErrors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+    setIsSubmitting(true);
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      setIsSubmitting(false);
       return;
     }
-
-    if (!validateAge(formData.dateOfBirth)) {
-      setError('You must be 21 years or older to register');
-      return;
-    }
-
     try {
       await register(formData);
       navigate('/verify');
     } catch (error) {
-      setError(error.message || 'An error occurred during registration');
+      setErrors({ submit: error.message || 'An error occurred during registration' });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="registration-form">
       <h2>Create an Account</h2>
-      {error && <p className="error-message">{error}</p>}
+      {errors.submit && <p className="error-message">{errors.submit}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Full Name</label>
@@ -69,8 +83,9 @@ function RegistrationForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            required
+            className={errors.name ? 'error' : ''}
           />
+          {errors.name && <span className="error-message">{errors.name}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -80,8 +95,9 @@ function RegistrationForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            required
+            className={errors.email ? 'error' : ''}
           />
+          {errors.email && <span className="error-message">{errors.email}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
@@ -91,8 +107,9 @@ function RegistrationForm() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            required
+            className={errors.password ? 'error' : ''}
           />
+          {errors.password && <span className="error-message">{errors.password}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="confirmPassword">Confirm Password</label>
@@ -102,8 +119,9 @@ function RegistrationForm() {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            required
+            className={errors.confirmPassword ? 'error' : ''}
           />
+          {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="dateOfBirth">Date of Birth</label>
@@ -113,8 +131,9 @@ function RegistrationForm() {
             name="dateOfBirth"
             value={formData.dateOfBirth}
             onChange={handleChange}
-            required
+            className={errors.dateOfBirth ? 'error' : ''}
           />
+          {errors.dateOfBirth && <span className="error-message">{errors.dateOfBirth}</span>}
         </div>
         <div className="form-group">
           <label>
@@ -123,12 +142,15 @@ function RegistrationForm() {
               name="agreeToTerms"
               checked={formData.agreeToTerms}
               onChange={handleChange}
-              required
+              className={errors.agreeToTerms ? 'error' : ''}
             />
             I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
           </label>
+          {errors.agreeToTerms && <span className="error-message">{errors.agreeToTerms}</span>}
         </div>
-        <button type="submit" className="btn btn-primary">Create Account</button>
+        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+          {isSubmitting ? 'Creating Account...' : 'Create Account'}
+        </button>
       </form>
     </div>
   );
