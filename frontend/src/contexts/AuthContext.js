@@ -37,6 +37,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (formData) => {
+    try {
+      const response = await api.post('/users/register', formData);
+      localStorage.setItem('userToken', response.data.token);
+      setUser(response.data.user);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data?.message || 'An error occurred during registration';
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('userToken');
     setUser(null);
@@ -45,6 +56,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     login,
+    register,
     logout,
     loading
   };
