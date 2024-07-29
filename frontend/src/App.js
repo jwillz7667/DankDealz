@@ -54,7 +54,6 @@ function App() {
           <Route path="/supplier/analytics" element={<PrivateRoute><AnalyticsDashboard /></PrivateRoute>} />
         </Routes>
       </div>
-    </AuthProvider>
   );
 }
 
