@@ -23,13 +23,16 @@ import AnalyticsDashboard from './components/AnalyticsDashboard';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
-    <AuthProvider>
-      <div className="App">
-        <Navbar />
-        <Routes>
+    <div className="App">
+      <Navbar />
+      <Routes>
           <Route path="/" element={<WelcomeScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegistrationForm />} />
