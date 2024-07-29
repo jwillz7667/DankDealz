@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetails.css';
+import Loading from './Loading';
 
 function ProductDetails() {
   const [product, setProduct] = useState(null);
@@ -15,11 +16,14 @@ function ProductDetails() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        setLoading(true);
         const { data } = await axios.get(`/api/products/${id}`);
         setProduct(data);
-        setLoading(false);
+        setError(null);
       } catch (error) {
-        setError(error.message);
+        setError(error.response?.data?.message || 'An error occurred while fetching the product.');
+        setProduct(null);
+      } finally {
         setLoading(false);
       }
     };
@@ -38,9 +42,9 @@ function ProductDetails() {
     console.log(`Saved ${product.name} for later`);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!product) return <div>Product not found</div>;
+  if (loading) return <Loading />;
+  if (error) return <div className="error-message">Error: {error}</div>;
+  if (!product) return <div className="error-message">Product not found</div>;
 
   return (
     <div className="product-details">
