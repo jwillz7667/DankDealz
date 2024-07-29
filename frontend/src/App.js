@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import WelcomeScreen from './components/WelcomeScreen';
 import LoginScreen from './components/LoginScreen';
+import Navbar from './components/Navbar';
 import RegistrationForm from './components/RegistrationForm';
 import EmailVerificationScreen from './components/EmailVerificationScreen';
 import ProfileSetup from './components/ProfileSetup';
@@ -22,9 +23,12 @@ import AnalyticsDashboard from './components/AnalyticsDashboard';
 import PrivateRoute from './components/PrivateRoute';
 
 function App() {
+  const { user } = useAuth();
+
   return (
     <AuthProvider>
       <div className="App">
+        <Navbar />
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
           <Route path="/login" element={<LoginScreen />} />

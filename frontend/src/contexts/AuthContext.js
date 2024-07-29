@@ -51,6 +51,8 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('userToken');
     setUser(null);
+    // Optionally, you can redirect to the login page or home page after logout
+    window.location.href = '/login';
   };
 
   const value = {
