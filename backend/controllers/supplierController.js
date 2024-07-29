@@ -97,11 +97,13 @@ const updateProduct = async (req, res) => {
 // @route   DELETE /api/suppliers/products/:id
 // @access  Private
 const deleteProduct = async (req, res) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findOneAndDelete({
+    _id: req.params.id,
+    supplier: req.user._id
+  });
 
-  if (product && product.supplier.toString() === req.user._id.toString()) {
-    await product.remove();
-    res.json({ message: 'Product remove' });
+  if (product) {
+    res.json({ message: 'Product removed' });
   } else {
     res.status(404);
     throw new Error('Product not found or you are not authorized to delete this product');
