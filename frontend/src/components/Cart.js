@@ -79,12 +79,6 @@ function Cart() {
 }
 
 export default Cart;
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Loading from './Loading';
-
-function Cart() {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
