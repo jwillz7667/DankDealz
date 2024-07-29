@@ -22,7 +22,7 @@ function LoginScreen() {
       if (rememberMe) {
         // Implement remember me functionality
       }
-      navigate('/dashboard');
+      navigate('/home');
     } catch (error) {
       setError(error.message || 'An error occurred during login');
     } finally {
