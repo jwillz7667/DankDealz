@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import WelcomeScreen from './components/WelcomeScreen';
 import LoginScreen from './components/LoginScreen';
 import RegistrationForm from './components/RegistrationForm';
@@ -18,32 +19,35 @@ import ProductManagement from './components/ProductManagement';
 import ProductForm from './components/ProductForm';
 import OrderManagement from './components/OrderManagement';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<WelcomeScreen />} />
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path="/register" element={<RegistrationForm />} />
-        <Route path="/verify" element={<EmailVerificationScreen />} />
-        <Route path="/profile-setup" element={<ProfileSetup />} />
-        <Route path="/home" element={<HomeScreen />} />
-        <Route path="/products" element={<ProductList />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/order-confirmation" element={<OrderConfirmation />} />
-        <Route path="/profile" element={<UserProfile />} />
-        <Route path="/order/:id" element={<OrderDetails />} />
-        <Route path="/supplier/dashboard" element={<SupplierDashboard />} />
-        <Route path="/supplier/products" element={<ProductManagement />} />
-        <Route path="/supplier/products/new" element={<ProductForm />} />
-        <Route path="/supplier/products/:id/edit" element={<ProductForm />} />
-        <Route path="/supplier/orders" element={<OrderManagement />} />
-        <Route path="/supplier/analytics" element={<AnalyticsDashboard />} />
-      </Routes>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<WelcomeScreen />} />
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/verify" element={<EmailVerificationScreen />} />
+          <Route path="/profile-setup" element={<ProfileSetup />} />
+          <Route path="/home" element={<PrivateRoute><HomeScreen /></PrivateRoute>} />
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+          <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
+          <Route path="/order-confirmation" element={<PrivateRoute><OrderConfirmation /></PrivateRoute>} />
+          <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
+          <Route path="/order/:id" element={<PrivateRoute><OrderDetails /></PrivateRoute>} />
+          <Route path="/supplier/dashboard" element={<PrivateRoute><SupplierDashboard /></PrivateRoute>} />
+          <Route path="/supplier/products" element={<PrivateRoute><ProductManagement /></PrivateRoute>} />
+          <Route path="/supplier/products/new" element={<PrivateRoute><ProductForm /></PrivateRoute>} />
+          <Route path="/supplier/products/:id/edit" element={<PrivateRoute><ProductForm /></PrivateRoute>} />
+          <Route path="/supplier/orders" element={<PrivateRoute><OrderManagement /></PrivateRoute>} />
+          <Route path="/supplier/analytics" element={<PrivateRoute><AnalyticsDashboard /></PrivateRoute>} />
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../apiConfig';
+import { useAuth } from '../contexts/AuthContext';
 import './LoginScreen.css';
 
 function LoginScreen() {
@@ -8,21 +8,25 @@ function LoginScreen() {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
     
     try {
-      const response = await api.post('/users/login', { email, password });
-      localStorage.setItem('userToken', response.data.token);
+      await login(email, password);
       if (rememberMe) {
         // Implement remember me functionality
       }
       navigate('/dashboard');
     } catch (error) {
-      setError(error.response?.data?.message || 'An error occurred during login');
+      setError(error.message || 'An error occurred during login');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,7 +65,9 @@ function LoginScreen() {
             Remember Me
           </label>
         </div>
-        <button type="submit" className="btn btn-primary">Log In</button>
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? 'Logging in...' : 'Log In'}
+        </button>
       </form>
       <p>
         <Link to="/forgot-password">Forgot Password?</Link>
