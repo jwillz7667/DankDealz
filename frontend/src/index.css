@@ -20,6 +20,59 @@
   --loading-color: #4CAF50;
   --error-bg-color: #ffebee;
   --error-text-color: #f44336;
+
+  /* Navbar styles */
+  --navbar-bg-color: #333;
+  --navbar-text-color: #fff;
+  --navbar-hover-color: #4CAF50;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: var(--navbar-bg-color);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  color: var(--navbar-text-color);
+  font-size: 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-item {
+  color: var(--navbar-text-color);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-item:hover {
+  background-color: var(--navbar-hover-color);
+}
+
+.logout-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--navbar-text-color);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: var(--navbar-hover-color);
 }
 
 * {
