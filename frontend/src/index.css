@@ -25,6 +25,14 @@
   --navbar-bg-color: #333;
   --navbar-text-color: #fff;
   --navbar-hover-color: #4CAF50;
+
+  /* Focus styles for better accessibility */
+  --focus-color: #ffeb3b;
+}
+
+:focus {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
 }
 
 /* Navbar styles */
@@ -100,7 +108,8 @@ code {
   padding: var(--spacing-medium);
 }
 
-.btn {
+.btn,
+a.btn {
   display: inline-block;
   padding: var(--spacing-small) var(--spacing-medium);
   background-color: var(--primary-color);
@@ -110,7 +119,8 @@ code {
   transition: background-color 0.3s ease;
 }
 
-.btn:hover {
+.btn:hover,
+a.btn:hover {
   background-color: darken(var(--primary-color), 10%);
 }
 

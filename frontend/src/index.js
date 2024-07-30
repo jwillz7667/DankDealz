@@ -15,7 +15,7 @@ root.render(
   <React.StrictMode>
     <ErrorBoundary>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={<div>Loading persisted state...</div>} persistor={persistor}>
           <Router>
             <App />
           </Router>
