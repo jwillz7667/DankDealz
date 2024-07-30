@@ -27,10 +27,12 @@ function Cart() {
   const updateQuantity = async (itemId, newQuantity) => {
     try {
       await axios.put(`/api/cart/${itemId}`, { quantity: newQuantity });
-      const updatedCart = { ...cart };
-      const itemIndex = updatedCart.items.findIndex(item => item._id === itemId);
-      updatedCart.items[itemIndex].quantity = newQuantity;
-      setCart(updatedCart);
+      setCart(prevCart => {
+        const updatedItems = prevCart.items.map(item =>
+          item._id === itemId ? { ...item, quantity: newQuantity } : item
+        );
+        return { ...prevCart, items: updatedItems };
+      });
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to update quantity. Please try again later.');
     }
@@ -39,9 +41,10 @@ function Cart() {
   const removeItem = async (itemId) => {
     try {
       await axios.delete(`/api/cart/${itemId}`);
-      const updatedCart = { ...cart };
-      updatedCart.items = updatedCart.items.filter(item => item._id !== itemId);
-      setCart(updatedCart);
+      setCart(prevCart => {
+        const updatedItems = prevCart.items.filter(item => item._id !== itemId);
+        return { ...prevCart, items: updatedItems };
+      });
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to remove item. Please try again later.');
     }
