@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function VerificationScreen() {
+function EmailVerificationScreen() {
   return (
-    <div className="verification-screen">
+    <div className="email-verification-screen">
       <h2>Verify Your Email</h2>
       <p>We've sent a verification email to your registered email address. Please check your inbox and click on the verification link to complete your registration.</p>
       <p>Once verified, you can proceed to set up your profile.</p>
@@ -12,4 +12,4 @@ function VerificationScreen() {
   );
 }
 
-export default VerificationScreen;
+export default EmailVerificationScreen;
