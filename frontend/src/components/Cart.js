@@ -50,9 +50,17 @@ function Cart() {
     }
   };
 
-  if (loading) return <Loading />;
-  if (error) return <div className="error-message">Error: {error}</div>;
-  if (!cart || cart.items.length === 0) return <div>Your cart is empty</div>;
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <div className="error-message">Error: {error}</div>;
+  }
+
+  if (!cart || cart.items.length === 0) {
+    return <div>Your cart is empty</div>;
+  }
 
   return (
     <div className="cart">
