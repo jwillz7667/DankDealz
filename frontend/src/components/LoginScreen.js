@@ -20,11 +20,15 @@ function LoginScreen() {
     try {
       await login(email, password);
       if (rememberMe) {
-        // Implement remember me functionality
+        localStorage.setItem('rememberMe', 'true');
       }
       navigate('/home');
     } catch (error) {
-      setError(error.message || 'An error occurred during login');
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError('An error occurred during login. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -33,6 +37,7 @@ function LoginScreen() {
   return (
     <div className="login-screen">
       <h2>Log In to Dank Deals</h2>
+      {loading && <div className="spinner"></div>}
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -65,7 +70,7 @@ function LoginScreen() {
             Remember Me
           </label>
         </div>
-        <button type="submit" className="btn btn-primary" disabled={loading}>
+        <button type="submit" className="btn btn-primary" disabled={loading} aria-busy={loading}>
           {loading ? 'Logging in...' : 'Log In'}
         </button>
       </form>
