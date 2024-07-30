@@ -151,6 +151,3 @@ export default Cart;
       <Link to="/checkout" className="checkout-btn">Proceed to Checkout</Link>
     </div>
   );
-}
-
-export default Cart;
