@@ -15,7 +15,7 @@ function Cart() {
         setCart(data);
         setError(null);
       } catch (error) {
-        setError(error.response?.data?.message || 'Failed to fetch cart');
+        setError(error.response?.data?.message || 'Failed to fetch cart. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -32,7 +32,7 @@ function Cart() {
       updatedCart.items[itemIndex].quantity = newQuantity;
       setCart(updatedCart);
     } catch (error) {
-      setError(error.response?.data?.message || 'Failed to update quantity');
+      setError(error.response?.data?.message || 'Failed to update quantity. Please try again later.');
     }
   };
 
@@ -43,7 +43,7 @@ function Cart() {
       updatedCart.items = updatedCart.items.filter(item => item._id !== itemId);
       setCart(updatedCart);
     } catch (error) {
-      setError(error.response?.data?.message || 'Failed to remove item');
+      setError(error.response?.data?.message || 'Failed to remove item. Please try again later.');
     }
   };
 
