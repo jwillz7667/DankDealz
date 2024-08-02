@@ -58,6 +58,7 @@ function App() {
             <Route path="/supplier/products/:id/edit" element={<PrivateRoute><ProductForm /></PrivateRoute>} />
             <Route path="/supplier/orders" element={<PrivateRoute><OrderManagement /></PrivateRoute>} />
             <Route path="/supplier/analytics" element={<PrivateRoute><AnalyticsDashboard /></PrivateRoute>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>

@@ -7,6 +7,7 @@ function Cart() {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -25,6 +26,7 @@ function Cart() {
   }, []);
 
   const updateQuantity = async (itemId, newQuantity) => {
+    setUpdating(true);
     try {
       await axios.put(`/api/cart/${itemId}`, { quantity: newQuantity });
       setCart(prevCart => {
@@ -35,6 +37,8 @@ function Cart() {
       });
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to update quantity. Please try again later.');
+    } finally {
+      setUpdating(false);
     }
   };
 

@@ -44,9 +44,11 @@ function ProductList() {
   const addToCart = async (productId) => {
     try {
       await axios.post('/api/cart', { productId });
-      // You might want to show a success message or update the cart count here
+      // Show a success message
+      alert('Product added to cart successfully');
     } catch (error) {
       console.error('Error adding to cart:', error);
+      alert('Failed to add product to cart. Please try again.');
     }
   };
 
