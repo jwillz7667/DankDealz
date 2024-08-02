@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
+import CartItem from './CartItem';
 
 function Cart() {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [updating, setUpdating] = useState(false);
 
-  const fetchCart = async () => {
+  const fetchCart = useCallback(async () => {
     try {
       const { data } = await axios.get('/api/cart');
       setCart(data);
@@ -19,14 +19,13 @@ function Cart() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchCart();
-  }, []);
+  }, [fetchCart]);
 
-  const updateQuantity = async (itemId, newQuantity) => {
-    setUpdating(true);
+  const updateQuantity = useCallback(async (itemId, newQuantity) => {
     try {
       await axios.put(`/api/cart/${itemId}`, { quantity: newQuantity });
       setCart(prevCart => ({
@@ -37,12 +36,10 @@ function Cart() {
       }));
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to update quantity. Please try again later.');
-    } finally {
-      setUpdating(false);
     }
-  };
+  }, []);
 
-  const removeItem = async (itemId) => {
+  const removeItem = useCallback(async (itemId) => {
     try {
       await axios.delete(`/api/cart/${itemId}`);
       setCart(prevCart => {
@@ -52,7 +49,7 @@ function Cart() {
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to remove item. Please try again later.');
     }
-  };
+  }, []);
 
   if (loading) {
     return <Loading />;
