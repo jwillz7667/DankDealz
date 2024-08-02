@@ -16,28 +16,28 @@ function ProductList() {
   const [viewMode, setViewMode] = useState('grid');
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const { data } = await axios.get(`/api/products`, {
-          params: {
-            keyword: searchTerm,
-            category,
-            sortBy,
-            minPrice: priceRange[0],
-            maxPrice: priceRange[1],
-            minThc: thcContent[0],
-            maxThc: thcContent[1],
-          }
-        });
-        setProducts(data.products);
-        setLoading(false);
-      } catch (error) {
-        setError(error.response?.data?.message || 'Failed to load products. Please try again later.');
-        setLoading(false);
-      }
-    };
+  const fetchProducts = async () => {
+    try {
+      const { data } = await axios.get(`/api/products`, {
+        params: {
+          keyword: searchTerm,
+          category,
+          sortBy,
+          minPrice: priceRange[0],
+          maxPrice: priceRange[1],
+          minThc: thcContent[0],
+          maxThc: thcContent[1],
+        }
+      });
+      setProducts(data.products);
+      setLoading(false);
+    } catch (error) {
+      setError(error.response?.data?.message || 'Failed to load products. Please try again later.');
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchProducts();
   }, [searchTerm, category, sortBy, priceRange, thcContent]);
 

@@ -9,19 +9,19 @@ function Cart() {
   const [error, setError] = useState(null);
   const [updating, setUpdating] = useState(false);
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const { data } = await axios.get('/api/cart');
-        setCart(data);
-        setError(null);
-      } catch (error) {
-        setError(error.response?.data?.message || 'There was an issue fetching your cart. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchCart = async () => {
+    try {
+      const { data } = await axios.get('/api/cart');
+      setCart(data);
+      setError(null);
+    } catch (error) {
+      setError(error.response?.data?.message || 'There was an issue fetching your cart. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchCart();
   }, []);
 
@@ -29,12 +29,12 @@ function Cart() {
     setUpdating(true);
     try {
       await axios.put(`/api/cart/${itemId}`, { quantity: newQuantity });
-      setCart(prevCart => {
-        const updatedItems = prevCart.items.map(item =>
+      setCart(prevCart => ({
+        ...prevCart,
+        items: prevCart.items.map(item =>
           item._id === itemId ? { ...item, quantity: newQuantity } : item
-        );
-        return { ...prevCart, items: updatedItems };
-      });
+        )
+      }));
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to update quantity. Please try again later.');
     } finally {
