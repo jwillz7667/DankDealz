@@ -17,40 +17,44 @@ function Checkout() {
     e.preventDefault();
 
     if (!agreeToTerms) {
-      alert('Please agree to the Terms of Service');
+      setError('Please agree to the Terms of Service');
       return;
     }
 
-    if (paymentMethod === 'card') {
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: elements.getElement(CardElement),
-      });
+    setLoading(true);
+    setError(null);
 
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      try {
-        const { data } = await axios.post('/api/payment/process', {
-          amount: 1000, // Replace with actual order total
-          paymentMethodId: paymentMethod.id,
-          address,
-          deliveryTime,
-          promoCode
+    try {
+      let paymentResult;
+      if (paymentMethod === 'card') {
+        const { error, paymentMethod: stripePaymentMethod } = await stripe.createPaymentMethod({
+          type: 'card',
+          card: elements.getElement(CardElement),
         });
 
-        // Handle successful payment
-        console.log('Payment successful', data);
-        navigate('/order-confirmation', { state: { order: data.order } });
-      } catch (error) {
-        console.error('Payment failed', error);
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        paymentResult = await axios.post('/api/payment/process', {
+          paymentMethodId: stripePaymentMethod.id,
+        });
       }
-    } else {
-      // Handle other payment methods
-      console.log('Processing payment with', paymentMethod);
-      navigate('/order-confirmation');
+
+      const orderData = {
+        paymentMethod,
+        paymentResult: paymentResult?.data,
+        address,
+        deliveryTime,
+        promoCode
+      };
+
+      const { data } = await axios.post('/api/orders', orderData);
+      navigate('/order-confirmation', { state: { order: data } });
+    } catch (error) {
+      setError(error.message || 'An error occurred during checkout');
+    } finally {
+      setLoading(false);
     }
   };
 
