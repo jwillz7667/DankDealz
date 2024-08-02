@@ -8,7 +8,9 @@ function Checkout() {
   const [deliveryTime, setDeliveryTime] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [promoCode, setPromoCode] = useState('');
-  const [agreeToTerms, setAgreeToTerms] = useState(false); // Initialize agreeToTerms
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
@@ -57,6 +59,14 @@ function Checkout() {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return <div>Processing your order...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
 
   return (
     <div className="checkout">
