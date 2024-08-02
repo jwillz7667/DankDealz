@@ -33,7 +33,7 @@ function ProductList() {
         setProducts(data.products);
         setLoading(false);
       } catch (error) {
-        setError(error.message);
+        setError(error.response?.data?.message || 'Failed to load products. Please try again later.');
         setLoading(false);
       }
     };

@@ -19,7 +19,7 @@ function UserProfile() {
         setUser(data);
         setLoading(false);
       } catch (error) {
-        setError('Failed to load user profile');
+        setError('There was an issue loading your profile. Please try again later.');
         setLoading(false);
       }
     };

@@ -8,7 +8,7 @@ function Checkout() {
   const [deliveryTime, setDeliveryTime] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [promoCode, setPromoCode] = useState('');
-  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false); // Initialize agreeToTerms
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();

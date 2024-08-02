@@ -23,7 +23,7 @@ function CurrentOrders() {
     fetchCurrentOrders();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="loading-indicator">Loading your current orders...</div>;
   if (error) return <div>{error}</div>;
 
   return (

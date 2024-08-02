@@ -15,7 +15,7 @@ function Cart() {
         setCart(data);
         setError(null);
       } catch (error) {
-        setError(error.response?.data?.message || 'Failed to fetch cart. Please try again later.');
+        setError(error.response?.data?.message || 'There was an issue fetching your cart. Please try again later.');
       } finally {
         setLoading(false);
       }
