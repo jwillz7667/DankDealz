@@ -25,4 +25,5 @@ root.render(
   </React.StrictMode>
 );
 
+// Moved outside of React.StrictMode to ensure it only runs once in production
 reportWebVitals(console.log);
