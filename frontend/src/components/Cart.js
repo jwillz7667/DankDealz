@@ -70,20 +70,12 @@ function Cart() {
     <div className="cart">
       <h2>Your Cart</h2>
       {cart.items.map(item => (
-        <div key={item._id} className="cart-item">
-          <img src={item.product.image} alt={item.product.name} />
-          <div>
-            <h3>{item.product.name}</h3>
-            <p>Price: ${item.product.price}</p>
-            <input
-              type="number"
-              value={item.quantity}
-              onChange={(e) => updateQuantity(item._id, Number(e.target.value))}
-              min="1"
-            />
-            <button onClick={() => removeItem(item._id)}>Remove</button>
-          </div>
-        </div>
+        <CartItem
+          key={item._id}
+          item={item}
+          updateQuantity={updateQuantity}
+          removeItem={removeItem}
+        />
       ))}
       <div className="cart-total">
         <h3>Total: ${cart.total}</h3>
