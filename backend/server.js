@@ -41,8 +41,11 @@ mongoose.connect(process.env.MONGODB_URI, {
   process.exit(1);
 });
 
+app.get('/health', (req, res) => {
+  res.status(200).send('Server is healthy');
+});
+
 // Routes
-app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/suppliers', require('./routes/supplierRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/payment', require('./routes/paymentRoutes'));
