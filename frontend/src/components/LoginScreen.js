@@ -21,8 +21,6 @@ function LoginScreen() {
       await login(email, password);
       if (rememberMe) {
         localStorage.setItem('rememberMe', 'true');
-      if (rememberMe) {
-        localStorage.setItem('rememberMe', 'true');
         localStorage.setItem('email', email); // Store email if rememberMe is checked
       }
       navigate('/home');
