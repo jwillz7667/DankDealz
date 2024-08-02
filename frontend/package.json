@@ -13,7 +13,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "leaflet": "^1.9.5",
+    "leaflet": "^1.9.4",
     "redux": "4.2.2",
     "web-vitals": "3.4.1"
   },
