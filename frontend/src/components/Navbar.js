@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../slices/authSlice';
 
 function Navbar() {
-  const { user, logout } = useAuth();
+  const user = useSelector(state => state.auth.user);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <nav className="navbar">
@@ -12,7 +18,7 @@ function Navbar() {
         {user ? (
           <>
             <Link to="/profile" className="navbar-item">Profile</Link>
-            <button onClick={logout} className="navbar-item logout-btn">Logout</button>
+            <button onClick={handleLogout} className="navbar-item logout-btn">Logout</button>
           </>
         ) : (
           <>
