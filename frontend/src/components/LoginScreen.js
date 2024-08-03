@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../slices/authSlice';
+import { setUser } from '../slices/authSlice';
 import axios from 'axios';
 import './LoginScreen.css';
 
@@ -21,7 +21,7 @@ function LoginScreen() {
     
     try {
       const response = await axios.post('/api/users/login', { email, password });
-      dispatch(login(response.data));
+      dispatch(setUser(response.data));
       if (rememberMe) {
         localStorage.setItem('rememberMe', 'true');
         localStorage.setItem('email', email); // Store email if rememberMe is checked
