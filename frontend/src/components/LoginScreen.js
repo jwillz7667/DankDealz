@@ -20,7 +20,7 @@ function LoginScreen() {
     setLoading(true);
     
     try {
-      const response = await api.post('/users/login', { email, password });
+      const response = await api.post('/api/users/login', { email, password });
       dispatch(setUser(response.data));
       if (rememberMe) {
         localStorage.setItem('rememberMe', 'true');

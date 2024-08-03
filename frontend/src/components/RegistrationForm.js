@@ -68,7 +68,7 @@ function RegistrationForm() {
       return;
     }
     try {
-      const response = await api.post('/users/register', formData);
+      const response = await api.post('/api/users/register', formData);
       dispatch(setUser(response.data));
       navigate('/verify');
     } catch (error) {

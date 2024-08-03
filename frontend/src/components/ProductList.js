@@ -21,7 +21,7 @@ function ProductList() {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchProducts(filters));
+    dispatch(fetchProducts({ ...filters, url: '/api/products' }));
   }, [dispatch, filters]);
 
   const addToCart = async (productId) => {
