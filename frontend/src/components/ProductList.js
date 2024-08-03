@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../slices/productSlice';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './ProductList.css';
 import QuickView from './QuickView';
@@ -16,10 +17,10 @@ const Header = () => {
         <header className="bg-primary text-primary-foreground p-4 flex justify-between items-center shadow-md">
             <div className="text-3xl font-bold italic text-gradient">DankDealz</div>
             <nav className="flex space-x-6">
-                <a href="#" className={hoverUnderlineClass}>Home</a>
-                <a href="#" className={hoverUnderlineClass}>Shop</a>
-                <a href="#" className={hoverUnderlineClass}>About</a>
-                <a href="#" className={hoverUnderlineClass}>Contact</a>
+                <Link to="/" className={hoverUnderlineClass}>Home</Link>
+                <Link to="/shop" className={hoverUnderlineClass}>Shop</Link>
+                <Link to="/about" className={hoverUnderlineClass}>About</Link>
+                <Link to="/contact" className={hoverUnderlineClass}>Contact</Link>
             </nav>
         </header>
     );
