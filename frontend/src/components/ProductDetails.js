@@ -31,10 +31,13 @@ function ProductDetails() {
     fetchProduct();
   }, [id]);
 
-  const addToCart = () => {
-    // Implement add to cart functionality
-    console.log(`Added ${quantity} of ${product.name} to cart`);
-    navigate('/cart');
+  const addToCart = async () => {
+    try {
+      await axios.post('/api/cart', { productId: product._id, quantity });
+      navigate('/cart');
+    } catch (error) {
+      setError(error.response?.data?.message || 'Failed to add item to cart');
+    }
   };
 
   const saveForLater = () => {
