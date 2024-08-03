@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../slices/productSlice';
+import axios from 'axios';
 import './ProductList.css';
 import QuickView from './QuickView';
 import ProductFilters from './ProductFilters';
@@ -25,7 +26,9 @@ function ProductList() {
 
   const addToCart = async (productId) => {
     try {
-      await axios.post('/api/cart', { productId });
+      await axios.post('/api/cart', { productId }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      });
       alert('Product added to cart successfully');
     } catch (error) {
       console.error('Error adding to cart:', error);
