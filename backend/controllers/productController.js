@@ -4,26 +4,31 @@ const Product = require('../models/productModel');
 // @route   GET /api/products
 // @access  Public
 const getProducts = async (req, res) => {
-  const pageSize = 10;
-  const page = Number(req.query.pageNumber) || 1;
+  try {
+    const pageSize = 10;
+    const page = Number(req.query.pageNumber) || 1;
 
-  const keyword = req.query.keyword
-    ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
-      }
-    : {};
+    const keyword = req.query.keyword
+      ? {
+          name: {
+            $regex: req.query.keyword,
+            $options: 'i',
+          },
+        }
+      : {};
 
-  const category = req.query.category ? { category: req.query.category } : {};
+    const category = req.query.category ? { category: req.query.category } : {};
 
-  const count = await Product.countDocuments({ ...keyword, ...category });
-  const products = await Product.find({ ...keyword, ...category })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
+    const count = await Product.countDocuments({ ...keyword, ...category });
+    const products = await Product.find({ ...keyword, ...category })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
 
-  res.json({ products, page, pages: Math.ceil(count / pageSize) });
+    res.json({ products, page, pages: Math.ceil(count / pageSize) });
+  } catch (error) {
+    console.error('Error in getProducts:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
 };
 
 // @desc    Fetch single product

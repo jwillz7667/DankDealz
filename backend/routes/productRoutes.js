@@ -8,9 +8,9 @@ const {
 } = require('../controllers/productController');
 const { protect } = require('../middleware/authMiddleware');
 
-router.route('/').get(getProducts);
-router.route('/home').get(getHomePageData);
-router.route('/:id').get(getProductById);
-router.route('/:id/reviews').post(protect, createProductReview);
+router.get('/', getProducts);
+router.get('/home', getHomePageData);
+router.get('/:id', getProductById);
+router.post('/:id/reviews', protect, createProductReview);
 
 module.exports = router;
