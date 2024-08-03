@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
-import './index.css';
+import './index.css'; // This now includes Tailwind styles
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ErrorBoundary from './components/ErrorBoundary';
