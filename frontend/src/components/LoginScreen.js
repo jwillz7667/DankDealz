@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../slices/authSlice';
-import axios from 'axios';
+import api from '../apiConfig';
 import './LoginScreen.css';
 
 function LoginScreen() {
@@ -20,7 +20,7 @@ function LoginScreen() {
     setLoading(true);
     
     try {
-      const response = await axios.post('/api/users/login', { email, password });
+      const response = await api.post('/users/login', { email, password });
       dispatch(setUser(response.data));
       if (rememberMe) {
         localStorage.setItem('rememberMe', 'true');
