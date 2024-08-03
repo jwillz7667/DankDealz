@@ -15,6 +15,7 @@ function Navbar() {
     <nav className="navbar">
       <Link to="/" className="navbar-brand">Dank Deals</Link>
       <div className="navbar-menu">
+        <Link to="/" className="navbar-item">Products</Link>
         {user ? (
           <>
             <Link to="/profile" className="navbar-item">Profile</Link>

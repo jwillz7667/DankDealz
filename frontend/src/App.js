@@ -5,6 +5,7 @@ import Loading from './components/Loading';
 import Navbar from './components/Navbar';
 import PrivateRoute from './components/PrivateRoute';
 import routes from './routes';
+import ProductList from './components/ProductList';
 
 function App() {
   const isLoading = useSelector(state => state.auth.loading);
@@ -18,6 +19,7 @@ function App() {
       <Navbar />
       <Suspense fallback={<Loading />}>
         <Routes>
+          <Route path="/" element={<ProductList />} />
           {routes.map((route) => 
             route.private ? (
               <Route key={route.path} element={<PrivateRoute />}>

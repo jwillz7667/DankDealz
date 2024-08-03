@@ -21,13 +21,11 @@ const AnalyticsDashboard = lazy(() => import('./components/AnalyticsDashboard'))
 const NotFound = lazy(() => import('./components/NotFound'));
 
 const routes = [
-  { path: "/", element: <WelcomeScreen /> },
   { path: "/login", element: <LoginScreen /> },
   { path: "/register", element: <RegistrationForm /> },
   { path: "/verify", element: <EmailVerificationScreen /> },
   { path: "/profile-setup", element: <ProfileSetup /> },
   { path: "/home", element: <HomeScreen />, private: true },
-  { path: "/products", element: <ProductList /> },
   { path: "/products/:id", element: <ProductDetails /> },
   { path: "/cart", element: <Cart />, private: true },
   { path: "/checkout", element: <Checkout />, private: true },
