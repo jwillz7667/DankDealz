@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './HomeScreen.css';
 import './LeftMenu.css';
+import './LeftMenu.css';
 
 // Mock data for placeholders
 const mockCategories = [
