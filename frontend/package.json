@@ -15,32 +15,32 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@stripe/react-stripe-js": "^2.1.2",
-    "@stripe/stripe-js": "^2.1.0",
-    "axios": "^1.4.0",
-    "chart.js": "^4.3.3",
+    "@stripe/react-stripe-js": "^2.3.0",
+    "@stripe/stripe-js": "^2.1.6",
+    "axios": "^1.5.0",
+    "chart.js": "^4.4.0",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
     "react-redux": "^8.1.2",
-    "react-router-dom": "^6.15.0",
-    "react-scripts": "^3.0.1",
+    "react-router-dom": "^6.16.0",
+    "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/react": "^18.2.20",
+    "@testing-library/jest-dom": "^6.1.3",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
-    "eslint": "^8.47.0",
+    "eslint": "^8.49.0",
     "eslint-config-react-app": "^7.0.1",
-    "prettier": "^3.0.2",
-    "typescript": "^4.9.5"
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
   },
   "eslintConfig": {
     "extends": [
@@ -59,28 +59,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "resolutions": {
-    "sourcemap-codec": "npm:@jridgewell/sourcemap-codec",
-    "workbox-cacheable-response": "^7.0.0",
-    "rollup-plugin-terser": "npm:@rollup/plugin-terser",
-    "workbox-google-analytics": false,
-    "q": "npm:native-promise-only",
-    "@endo/eventual-send": "^1.0.0",
-    "@endo/captp": "^1.0.0",
-    "stable": "^0.1.8",
-    "w3c-hr-time": "npm:@types/w3c-hr-time",
-    "abab": "npm:@types/abab",
-    "domexception": "npm:@types/domexception",
-    "glob": "^9.3.5",
-    "svgo": "^2.8.0",
-    "rimraf": "^4.4.1",
-    "@babel/plugin-proposal-private-methods": "npm:@babel/plugin-transform-private-methods",
-    "@babel/plugin-proposal-numeric-separator": "npm:@babel/plugin-transform-numeric-separator",
-    "@babel/plugin-proposal-optional-chaining": "npm:@babel/plugin-transform-optional-chaining",
-    "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "npm:@babel/plugin-transform-nullish-coalescing-operator",
-    "@humanwhocodes/object-schema": "npm:@eslint/object-schema",
-    "@humanwhocodes/config-array": "npm:@eslint/config-array"
   }
 }
