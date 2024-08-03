@@ -65,6 +65,8 @@
     "workbox-cacheable-response": "^7.0.0",
     "rollup-plugin-terser": "npm:@rollup/plugin-terser",
     "workbox-google-analytics": false,
-    "q": "npm:native-promise-only"
+    "q": "npm:native-promise-only",
+    "@endo/eventual-send": "^1.0.0",
+    "@endo/captp": "^1.0.0"
   }
 }
