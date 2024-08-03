@@ -1,19 +1,16 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function PrivateRoute({ children }) {
-  const auth = useAuth();
+function PrivateRoute() {
+  const user = useSelector((state) => state.auth.user);
+  const loading = useSelector((state) => state.auth.loading);
 
-  if (!auth) {
-    return <Navigate to="/login" />;
-  }
-
-  if (auth.loading) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
-  return auth.user ? children : <Navigate to="/login" />;
+  return user ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default PrivateRoute;

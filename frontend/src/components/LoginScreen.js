@@ -26,7 +26,7 @@ function LoginScreen() {
         localStorage.setItem('rememberMe', 'true');
         localStorage.setItem('email', email); // Store email if rememberMe is checked
       }
-      navigate('/home');
+      navigate('/profile');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
         setError(error.response.data.message);

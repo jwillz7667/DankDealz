@@ -18,19 +18,15 @@ function App() {
       <Navbar />
       <Suspense fallback={<Loading />}>
         <Routes>
-          {routes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                route.private ? (
-                  <PrivateRoute>{route.element}</PrivateRoute>
-                ) : (
-                  route.element
-                )
-              }
-            />
-          ))}
+          {routes.map((route) => 
+            route.private ? (
+              <Route key={route.path} element={<PrivateRoute />}>
+                <Route path={route.path} element={route.element} />
+              </Route>
+            ) : (
+              <Route key={route.path} path={route.path} element={route.element} />
+            )
+          )}
         </Routes>
       </Suspense>
     </div>
