@@ -52,8 +52,8 @@ function HomeScreen() {
       <header className="modern-header">
         <div className="logo">
           <img src="/logo.png" alt="DankDealz Logo" />
-          <h1 className="site-title">DankDealz</h1>
         </div>
+        <h1 className="site-title">DankDealz</h1>
         <form onSubmit={handleSearch} className="search-bar">
           <input
             type="text"
