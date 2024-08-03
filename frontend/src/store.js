@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 // Import your reducers here
 import authReducer from './slices/authSlice';
 import cartReducer from './slices/cartSlice';
+import productReducer from './slices/productSlice';
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +17,7 @@ const persistConfig = {
 const rootReducer = {
   auth: persistReducer(persistConfig, authReducer),
   cart: persistReducer(persistConfig, cartReducer),
+  products: productReducer, // Add this line
 };
 
 export const store = configureStore({

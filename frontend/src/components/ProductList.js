@@ -41,7 +41,7 @@ const ProductCard = ({ product, openQuickView, addToCart }) => {
 
 function ProductList() {
     const dispatch = useDispatch();
-    const { products, loading, error } = useSelector(state => state.products);
+    const { products, loading, error } = useSelector(state => state.products || { products: [], loading: false, error: null });
     const [quickViewProduct, setQuickViewProduct] = useState(null);
 
     useEffect(() => {
@@ -70,7 +70,7 @@ function ProductList() {
         <div className="bg-background min-h-screen text-foreground">
             <Header />
             <main className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                {products.map((product) => (
+                {products && products.map((product) => (
                     <ProductCard
                         key={product._id}
                         product={product}
