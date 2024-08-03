@@ -23,6 +23,23 @@ const userSchema = mongoose.Schema({
     type: Boolean,
     required: true,
     default: false
+  },
+  profilePicture: {
+    type: String,
+    default: ''
+  },
+  deliveryAddress: {
+    type: String,
+    default: ''
+  },
+  phoneNumber: {
+    type: String,
+    default: ''
+  },
+  supplierInfo: {
+    companyName: String,
+    businessLicense: String,
+    description: String
   }
 }, {
   timestamps: true
