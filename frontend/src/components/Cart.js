@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchCart, updateCartItem, removeCartItem } from '../slices/cartSlice';
+import { fetchCart, updateCartItem, removeItem } from '../slices/cartSlice';
 import Loading from './Loading';
 import CartItem from './CartItem';
 
@@ -17,8 +17,8 @@ function Cart() {
     dispatch(updateCartItem({ itemId, quantity: newQuantity }));
   };
 
-  const removeItem = (itemId) => {
-    dispatch(removeCartItem(itemId));
+  const handleRemoveItem = (itemId) => {
+    dispatch(removeItem(itemId));
   };
 
   if (loading) {
@@ -41,7 +41,7 @@ function Cart() {
           key={item._id}
           item={item}
           updateQuantity={updateQuantity}
-          removeItem={removeItem}
+          removeItem={handleRemoveItem}
         />
       ))}
       <div className="cart-total">
