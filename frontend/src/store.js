@@ -1,30 +1,26 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
 // Import your reducers here
-// import userReducer from './reducers/userReducer';
-// import cartReducer from './reducers/cartReducer';
-
-const rootReducer = combineReducers({
-  // Add your reducers here
-  // user: userReducer,
-  // cart: cartReducer,
-});
+import authReducer from './slices/authSlice';
+import cartReducer from './slices/cartSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  // Optionally, you can blacklist certain reducers from being persisted
-  // blacklist: ['someReducer']
+  whitelist: ['auth', 'cart'] // Only persist these reducers
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const rootReducer = {
+  auth: persistReducer(persistConfig, authReducer),
+  cart: persistReducer(persistConfig, cartReducer),
+};
 
-export const store = createStore(
-  persistedReducer,
-  applyMiddleware(thunk)
-);
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: [thunk]
+});
 
 export const persistor = persistStore(store);

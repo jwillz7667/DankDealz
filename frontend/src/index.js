@@ -7,23 +7,24 @@ import { store, persistor } from './store';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import ErrorBoundary from './components/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ErrorBoundary>
-      <Provider store={store}>
-        <PersistGate loading={<div>Loading persisted state...</div>} persistor={persistor}>
-          <Router>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <ErrorBoundary>
             <App />
-          </Router>
-        </PersistGate>
-      </Provider>
-    </ErrorBoundary>
+          </ErrorBoundary>
+        </Router>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 
-// Moved outside of React.StrictMode to ensure it only runs once in production
-reportWebVitals(console.log);
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
