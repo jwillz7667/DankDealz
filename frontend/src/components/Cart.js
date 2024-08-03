@@ -1,55 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchCart, updateCartItem, removeCartItem } from '../slices/cartSlice';
 import Loading from './Loading';
 import CartItem from './CartItem';
 
 function Cart() {
-  const [cart, setCart] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchCart = useCallback(async () => {
-    try {
-      const { data } = await axios.get('/api/cart');
-      setCart(data);
-      setError(null);
-    } catch (error) {
-      setError(error.response?.data?.message || 'There was an issue fetching your cart. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const dispatch = useDispatch();
+  const { items, total, loading, error } = useSelector(state => state.cart);
 
   useEffect(() => {
-    fetchCart();
-  }, [fetchCart]);
+    dispatch(fetchCart());
+  }, [dispatch]);
 
-  const updateQuantity = useCallback(async (itemId, newQuantity) => {
-    try {
-      await axios.put(`/api/cart/${itemId}`, { quantity: newQuantity });
-      setCart(prevCart => ({
-        ...prevCart,
-        items: prevCart.items.map(item =>
-          item._id === itemId ? { ...item, quantity: newQuantity } : item
-        )
-      }));
-    } catch (error) {
-      setError(error.response?.data?.message || 'Failed to update quantity. Please try again later.');
-    }
-  }, []);
+  const updateQuantity = (itemId, newQuantity) => {
+    dispatch(updateCartItem({ itemId, quantity: newQuantity }));
+  };
 
-  const removeItem = useCallback(async (itemId) => {
-    try {
-      await axios.delete(`/api/cart/${itemId}`);
-      setCart(prevCart => {
-        const updatedItems = prevCart.items.filter(item => item._id !== itemId);
-        return { ...prevCart, items: updatedItems };
-      });
-    } catch (error) {
-      setError(error.response?.data?.message || 'Failed to remove item. Please try again later.');
-    }
-  }, []);
+  const removeItem = (itemId) => {
+    dispatch(removeCartItem(itemId));
+  };
 
   if (loading) {
     return <Loading />;

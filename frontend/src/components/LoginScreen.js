@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useDispatch } from 'react-redux';
+import { login } from '../slices/authSlice';
+import axios from 'axios';
 import './LoginScreen.css';
 
 function LoginScreen() {
@@ -10,7 +12,7 @@ function LoginScreen() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +20,8 @@ function LoginScreen() {
     setLoading(true);
     
     try {
-      await login(email, password);
+      const response = await axios.post('/api/users/login', { email, password });
+      dispatch(login(response.data));
       if (rememberMe) {
         localStorage.setItem('rememberMe', 'true');
         localStorage.setItem('email', email); // Store email if rememberMe is checked

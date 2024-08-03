@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../slices/productSlice';
 import './ProductList.css';
 import QuickView from './QuickView';
 import ProductFilters from './ProductFilters';
 import ProductCard from './ProductCard';
 
 function ProductList() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector(state => state.products);
   const [filters, setFilters] = useState({
     searchTerm: '',
     category: '',
@@ -20,22 +19,9 @@ function ProductList() {
   const [viewMode, setViewMode] = useState('grid');
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
-  const fetchProducts = useCallback(async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(`/api/products`, { params: filters });
-      setProducts(data.products);
-      setError(null);
-    } catch (error) {
-      setError(error.response?.data?.message || 'Failed to load products. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
-
   useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+    dispatch(fetchProducts(filters));
+  }, [dispatch, filters]);
 
   const addToCart = async (productId) => {
     try {

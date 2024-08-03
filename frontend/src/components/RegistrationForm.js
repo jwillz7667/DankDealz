@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useDispatch } from 'react-redux';
+import { register } from '../slices/authSlice';
+import axios from 'axios';
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({
@@ -14,7 +16,7 @@ function RegistrationForm() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -66,7 +68,8 @@ function RegistrationForm() {
       return;
     }
     try {
-      await register(formData);
+      const response = await axios.post('/api/users/register', formData);
+      dispatch(register(response.data));
       navigate('/verify');
     } catch (error) {
       setErrors({ submit: error.message || 'An error occurred during registration' });
