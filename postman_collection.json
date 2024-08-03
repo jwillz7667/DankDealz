@@ -74,6 +74,19 @@
               }
             }
           }
+        },
+        {
+          "name": "Get User Orders",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/users/orders",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ]
+          }
         }
       ]
     },
@@ -95,10 +108,10 @@
           }
         },
         {
-          "name": "Create Product (Supplier)",
+          "name": "Create Product Review",
           "request": {
             "method": "POST",
-            "url": "{{baseUrl}}/api/suppliers/products",
+            "url": "{{baseUrl}}/api/products/:id/reviews",
             "header": [
               {
                 "key": "Authorization",
@@ -107,7 +120,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Premium Flower\",\n  \"description\": \"High-quality cannabis flower\",\n  \"price\": 49.99,\n  \"category\": \"flower\",\n  \"stockQuantity\": 100,\n  \"thcContent\": 20,\n  \"cbdContent\": 1\n}",
+              "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Great product!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -117,25 +130,10 @@
           }
         },
         {
-          "name": "Update Product (Supplier)",
+          "name": "Get Home Page Data",
           "request": {
-            "method": "PUT",
-            "url": "{{baseUrl}}/api/suppliers/products/:id",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"price\": 54.99,\n  \"stockQuantity\": 80\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "method": "GET",
+            "url": "{{baseUrl}}/api/products/home"
           }
         }
       ]
@@ -182,7 +180,7 @@
           "name": "Update Cart Item",
           "request": {
             "method": "PUT",
-            "url": "{{baseUrl}}/api/cart/:itemId",
+            "url": "{{baseUrl}}/api/cart/:id",
             "header": [
               {
                 "key": "Authorization",
@@ -204,7 +202,7 @@
           "name": "Remove from Cart",
           "request": {
             "method": "DELETE",
-            "url": "{{baseUrl}}/api/cart/:itemId",
+            "url": "{{baseUrl}}/api/cart/:id",
             "header": [
               {
                 "key": "Authorization",
@@ -231,7 +229,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"deliveryAddress\": \"123 Main St, City, State, 12345\",\n  \"paymentMethod\": \"card\",\n  \"paymentDetails\": {\n    \"cardNumber\": \"4111111111111111\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2025,\n    \"cvc\": \"123\"\n  }\n}",
+              "raw": "{\n  \"orderItems\": [\n    {\n      \"product\": \"product_id_here\",\n      \"quantity\": 2\n    }\n  ],\n  \"shippingAddress\": {\n    \"address\": \"123 Main St\",\n    \"city\": \"Anytown\",\n    \"postalCode\": \"12345\",\n    \"country\": \"USA\"\n  },\n  \"paymentMethod\": \"PayPal\",\n  \"itemsPrice\": 49.98,\n  \"taxPrice\": 7.50,\n  \"shippingPrice\": 10,\n  \"totalPrice\": 67.48\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -241,10 +239,10 @@
           }
         },
         {
-          "name": "Get Order History",
+          "name": "Get Order by ID",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/orders/history",
+            "url": "{{baseUrl}}/api/orders/:id",
             "header": [
               {
                 "key": "Authorization",
@@ -254,10 +252,58 @@
           }
         },
         {
-          "name": "Get Order Details",
+          "name": "Update Order to Paid",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/orders/:id/pay",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"paypal_payment_id\",\n  \"status\": \"COMPLETED\",\n  \"update_time\": \"2023-09-01T12:00:00Z\",\n  \"payer\": {\n    \"email_address\": \"customer@example.com\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get My Orders",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/orders/:id",
+            "url": "{{baseUrl}}/api/orders/myorders",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Get Current Orders",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/orders/current",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Reorder",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/orders/reorder/:id",
             "header": [
               {
                 "key": "Authorization",
@@ -272,10 +318,111 @@
       "name": "Supplier",
       "item": [
         {
-          "name": "Get Supplier Dashboard",
+          "name": "Register as Supplier",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/suppliers/register",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"Green Leaf Dispensary\",\n  \"businessLicense\": \"BL12345678\",\n  \"description\": \"Premium cannabis products supplier\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update Supplier Profile",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/suppliers/profile",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"Green Leaf Dispensary Updated\",\n  \"description\": \"Updated description for our premium cannabis products\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add Product",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/suppliers/products",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Premium Indica Strain\",\n  \"description\": \"High-quality indica strain for relaxation\",\n  \"price\": 49.99,\n  \"category\": \"flower\",\n  \"stockQuantity\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/suppliers/products/:id",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Premium Indica Strain\",\n  \"price\": 54.99,\n  \"stockQuantity\": 80\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/suppliers/products/:id",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Get Supplier Products",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/api/suppliers/dashboard",
+            "url": "{{baseUrl}}/api/suppliers/products",
             "header": [
               {
                 "key": "Authorization",
@@ -320,6 +467,19 @@
           }
         },
         {
+          "name": "Get Supplier Dashboard",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/suppliers/dashboard",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ]
+          }
+        },
+        {
           "name": "Get Analytics",
           "request": {
             "method": "GET",
@@ -330,6 +490,33 @@
                 "value": "Bearer {{authToken}}"
               }
             ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Process Payment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/payment/process",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 6748,\n  \"paymentMethodId\": \"pm_card_visa\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
           }
         }
       ]
