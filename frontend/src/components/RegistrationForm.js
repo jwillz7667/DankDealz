@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../slices/authSlice';
-import axios from 'axios';
+import api from '../apiConfig';
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({
@@ -68,7 +68,7 @@ function RegistrationForm() {
       return;
     }
     try {
-      const response = await axios.post('/api/users/register', formData);
+      const response = await api.post('/users/register', formData);
       dispatch(setUser(response.data));
       navigate('/verify');
     } catch (error) {
