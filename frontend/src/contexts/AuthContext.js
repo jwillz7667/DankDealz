@@ -10,20 +10,20 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('userToken');
-    if (token) {
-      api.get('/users/profile')
-        .then(response => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        try {
+          const response = await api.get('/users/profile');
           setUser(response.data);
-        })
-        .catch(error => {
+        } catch (error) {
           console.error('Error fetching user profile:', error);
           localStorage.removeItem('userToken');
-        })
-        .finally(() => setLoading(false));
-    } else {
+        }
+      }
       setLoading(false);
-    }
+    };
+    fetchUser();
   }, []);
 
   const login = async (email, password) => {
