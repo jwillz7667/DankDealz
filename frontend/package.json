@@ -76,6 +76,7 @@
     "svgo": "^2.8.0",
     "rimraf": "^4.4.1",
     "@babel/plugin-proposal-private-methods": "npm:@babel/plugin-transform-private-methods",
-    "@babel/plugin-proposal-numeric-separator": "npm:@babel/plugin-transform-numeric-separator"
+    "@babel/plugin-proposal-numeric-separator": "npm:@babel/plugin-transform-numeric-separator",
+    "@babel/plugin-proposal-optional-chaining": "npm:@babel/plugin-transform-optional-chaining"
   }
 }
