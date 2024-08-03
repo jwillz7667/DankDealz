@@ -8,7 +8,8 @@ export const fetchProducts = createAsyncThunk(
       const response = await axios.get('/api/products', { params: filters });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      console.error('Error fetching products:', error);
+      return rejectWithValue(error.response?.data || 'An error occurred while fetching products');
     }
   }
 );
@@ -25,10 +26,12 @@ const productSlice = createSlice({
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
+        state.error = null;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;

@@ -71,14 +71,18 @@ function ProductList() {
         <div className="bg-background min-h-screen text-foreground">
             <Header />
             <main className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                {products && products.map((product) => (
-                    <ProductCard
-                        key={product._id}
-                        product={product}
-                        openQuickView={openQuickView}
-                        addToCart={addToCart}
-                    />
-                ))}
+                {products && products.length > 0 ? (
+                    products.map((product) => (
+                        <ProductCard
+                            key={product._id}
+                            product={product}
+                            openQuickView={openQuickView}
+                            addToCart={addToCart}
+                        />
+                    ))
+                ) : (
+                    <div>No products available</div>
+                )}
             </main>
             {quickViewProduct && (
                 <QuickView product={quickViewProduct} onClose={closeQuickView} addToCart={addToCart} />

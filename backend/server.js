@@ -62,6 +62,9 @@ app.use('/api/cart', require('./routes/cartRoutes'));
 // Add this line for debugging
 app.get('/api/test', (req, res) => res.json({ message: 'API is working' }));
 
+// Add this line for debugging
+app.get('/api/test', (req, res) => res.json({ message: 'API is working' }));
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   logger.error(err.stack);
