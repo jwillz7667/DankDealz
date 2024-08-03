@@ -86,6 +86,17 @@ body {
   margin-left: 300px;
   width: calc(100% - 300px);
 }
+
+@media (max-width: 768px) {
+  .left-menu.open {
+    width: 100%;
+  }
+  
+  .left-menu.open + .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
 .left-menu {
   position: fixed;
   top: 0;
