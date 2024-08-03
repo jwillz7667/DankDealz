@@ -71,7 +71,7 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5001;
-const server = app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+const server = app.listen(PORT, '0.0.0.0', () => logger.info(`Server running on port ${PORT}`));
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
