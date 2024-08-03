@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { register } from '../slices/authSlice';
+import { setUser } from '../slices/authSlice';
 import axios from 'axios';
 
 function RegistrationForm() {
@@ -69,7 +69,7 @@ function RegistrationForm() {
     }
     try {
       const response = await axios.post('/api/users/register', formData);
-      dispatch(register(response.data));
+      dispatch(setUser(response.data));
       navigate('/verify');
     } catch (error) {
       setErrors({ submit: error.message || 'An error occurred during registration' });
