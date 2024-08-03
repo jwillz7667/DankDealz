@@ -71,6 +71,7 @@
     "stable": "^0.1.8",
     "w3c-hr-time": "npm:@types/w3c-hr-time",
     "abab": "npm:@types/abab",
-    "domexception": "npm:@types/domexception"
+    "domexception": "npm:@types/domexception",
+    "glob": "^9.3.5"
   }
 }
