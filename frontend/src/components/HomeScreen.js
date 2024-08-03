@@ -54,18 +54,18 @@ function HomeScreen() {
           <img src="/logo.png" alt="DankDealz Logo" />
         </div>
         <h1 className="site-title">DankDealz</h1>
-        <form onSubmit={handleSearch} className="search-bar">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit" className="voice-search">🔍</button>
-        </form>
         <nav>
           <Link to="/cart">Cart</Link>
           <Link to="/profile">Profile</Link>
+          <form onSubmit={handleSearch} className="search-bar-small">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type="submit" className="search-button-small">🔍</button>
+          </form>
         </nav>
       </header>
 
