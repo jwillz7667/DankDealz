@@ -70,6 +70,7 @@
     "@endo/captp": "^1.0.0",
     "stable": "^0.1.8",
     "w3c-hr-time": "npm:@types/w3c-hr-time",
-    "abab": "npm:@types/abab"
+    "abab": "npm:@types/abab",
+    "domexception": "npm:@types/domexception"
   }
 }
