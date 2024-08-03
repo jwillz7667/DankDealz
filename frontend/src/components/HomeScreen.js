@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './HomeScreen.css';
+import './LeftMenu.css';
 
 // Mock data for placeholders
 const mockCategories = [
@@ -26,6 +27,7 @@ const recommendationCategories = [
 
 function HomeScreen() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const sliderRefs = useRef(recommendationCategories.map(() => React.createRef()));
   const navigate = useNavigate();
 
@@ -47,60 +49,86 @@ function HomeScreen() {
     navigate(`/product-preview/${productId}`);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="home-screen">
-      <header className="modern-header">
-        <div className="logo">
-          <img src="/logo.png" alt="DankDealz Logo" />
-        </div>
-        <h1 className="site-title">DankDealz</h1>
-        <nav>
-          <Link to="/cart">Cart</Link>
-          <Link to="/profile">Profile</Link>
-          <form onSubmit={handleSearch} className="search-bar-small">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button type="submit" className="search-button-small">🔍</button>
-          </form>
-        </nav>
-      </header>
-
-      <div className="category-slider">
-        {mockCategories.map(category => (
-          <Link to={`/category/${category.slug}`} key={category.slug} className="category-item">
-            <img src={category.icon} alt={category.name} />
-            <span>{category.name}</span>
-          </Link>
-        ))}
+      <div className={`left-menu ${isMenuOpen ? 'open' : ''}`}>
+        <button className="close-menu" onClick={toggleMenu}>×</button>
+        <h2>Menu</h2>
+        <ul>
+          <li><Link to="/account">My Account</Link></li>
+          <li><Link to="/orders">My Orders</Link></li>
+          <li><Link to="/favorites">Favorites</Link></li>
+          <li><Link to="/settings">Settings</Link></li>
+        </ul>
+        <h3>Categories</h3>
+        <ul>
+          {mockCategories.map(category => (
+            <li key={category.slug}>
+              <Link to={`/category/${category.slug}`}>{category.name}</Link>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      {recommendationCategories.map((category, index) => (
-        <section className="product-section" key={category}>
-          <h2>{category}</h2>
-          <div className="slider-container">
-            <button className="slider-button left" onClick={() => slide('left', index)}>❮</button>
-            <div className="product-slider" ref={sliderRefs.current[index]}>
-              {mockProducts.map(product => (
-                <div key={product._id} className="product-tile" onClick={() => handleProductClick(product._id)}>
-                  <img src={product.image} alt={product.name} />
-                  <div className="product-info">
-                    <h3>{product.name}</h3>
-                    <p className="price">${product.price}</p>
-                    <p className="rating">★ {product.rating} ({product.numReviews})</p>
-                    <p className="category">{product.category}</p>
-                    <p className="thc">THC: {product.thcContent}%</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="slider-button right" onClick={() => slide('right', index)}>❯</button>
+      <div className="main-content">
+        <header className="modern-header">
+          <button className="menu-toggle" onClick={toggleMenu}>☰</button>
+          <div className="logo">
+            <img src="/logo.png" alt="DankDealz Logo" />
           </div>
-        </section>
-      ))}
+          <h1 className="site-title">DankDealz</h1>
+          <nav>
+            <Link to="/cart">Cart</Link>
+            <Link to="/profile">Profile</Link>
+            <form onSubmit={handleSearch} className="search-bar-small">
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button type="submit" className="search-button-small">🔍</button>
+            </form>
+          </nav>
+        </header>
+
+        <div className="category-slider">
+          {mockCategories.map(category => (
+            <Link to={`/category/${category.slug}`} key={category.slug} className="category-item">
+              <img src={category.icon} alt={category.name} />
+              <span>{category.name}</span>
+            </Link>
+          ))}
+        </div>
+
+        {recommendationCategories.map((category, index) => (
+          <section className="product-section" key={category}>
+            <h2>{category}</h2>
+            <div className="slider-container">
+              <button className="slider-button left" onClick={() => slide('left', index)}>❮</button>
+              <div className="product-slider" ref={sliderRefs.current[index]}>
+                {mockProducts.map(product => (
+                  <div key={product._id} className="product-tile" onClick={() => handleProductClick(product._id)}>
+                    <img src={product.image} alt={product.name} />
+                    <div className="product-info">
+                      <h3>{product.name}</h3>
+                      <p className="price">${product.price}</p>
+                      <p className="rating">★ {product.rating} ({product.numReviews})</p>
+                      <p className="category">{product.category}</p>
+                      <p className="thc">THC: {product.thcContent}%</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button className="slider-button right" onClick={() => slide('right', index)}>❯</button>
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   );
 }
