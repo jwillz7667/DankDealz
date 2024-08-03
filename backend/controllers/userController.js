@@ -139,4 +139,75 @@ const getUserOrders = async (req, res) => {
   res.json(orders);
 };
 
-module.exports = { registerUser, loginUser, getUserProfile, updateUserProfile, getUserOrders };
+const updateUserPreferences = async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.preferences = req.body.preferences || user.preferences;
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      preferences: updatedUser.preferences
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
+
+const getFavoriteProducts = async (req, res) => {
+  const user = await User.findById(req.user._id).populate('favoriteProducts');
+  if (user) {
+    res.json(user.favoriteProducts);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
+
+const addFavoriteProduct = async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const productId = req.params.id;
+
+  if (user && productId) {
+    if (!user.favoriteProducts.includes(productId)) {
+      user.favoriteProducts.push(productId);
+      await user.save();
+      res.status(200).json({ message: 'Product added to favorites' });
+    } else {
+      res.status(400).json({ message: 'Product already in favorites' });
+    }
+  } else {
+    res.status(404);
+    throw new Error('User or Product not found');
+  }
+};
+
+const removeFavoriteProduct = async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const productId = req.params.id;
+
+  if (user && productId) {
+    user.favoriteProducts = user.favoriteProducts.filter(
+      (id) => id.toString() !== productId
+    );
+    await user.save();
+    res.status(200).json({ message: 'Product removed from favorites' });
+  } else {
+    res.status(404);
+    throw new Error('User or Product not found');
+  }
+};
+
+module.exports = { 
+  registerUser, 
+  loginUser, 
+  getUserProfile, 
+  updateUserProfile, 
+  getUserOrders,
+  updateUserPreferences,
+  getFavoriteProducts,
+  addFavoriteProduct,
+  removeFavoriteProduct
+};

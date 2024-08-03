@@ -40,7 +40,15 @@ const userSchema = mongoose.Schema({
     companyName: String,
     businessLicense: String,
     description: String
-  }
+  },
+  preferences: {
+    type: Object,
+    default: {}
+  },
+  favoriteProducts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+  }]
 }, {
   timestamps: true
 });
