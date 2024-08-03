@@ -6,6 +6,7 @@ const EmailVerificationScreen = lazy(() => import('./components/EmailVerificatio
 const ProfileSetup = lazy(() => import('./components/ProfileSetup'));
 const HomeScreen = lazy(() => import('./components/HomeScreen'));
 const ProductDetails = lazy(() => import('./components/ProductDetails'));
+const ProductPreview = lazy(() => import('./components/ProductPreview'));
 const Cart = lazy(() => import('./components/Cart'));
 const Checkout = lazy(() => import('./components/Checkout'));
 const OrderConfirmation = lazy(() => import('./components/OrderConfirmation'));
@@ -23,8 +24,9 @@ const routes = [
   { path: "/register", element: <RegistrationForm /> },
   { path: "/verify", element: <EmailVerificationScreen /> },
   { path: "/profile-setup", element: <ProfileSetup /> },
-  { path: "/home", element: <HomeScreen />, private: true },
+  { path: "/", element: <HomeScreen /> },
   { path: "/products/:id", element: <ProductDetails /> },
+  { path: "/product-preview/:id", element: <ProductPreview /> },
   { path: "/cart", element: <Cart />, private: true },
   { path: "/checkout", element: <Checkout />, private: true },
   { path: "/order-confirmation", element: <OrderConfirmation />, private: true },

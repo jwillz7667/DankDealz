@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './HomeScreen.css';
 
 // Mock data for placeholders
@@ -25,13 +25,26 @@ const recommendationCategories = [
 ];
 
 function HomeScreen() {
+  const [searchTerm, setSearchTerm] = useState('');
   const sliderRefs = useRef(recommendationCategories.map(() => React.createRef()));
+  const navigate = useNavigate();
 
   const slide = (direction, index) => {
     if (sliderRefs.current[index].current) {
       const scrollAmount = direction === 'left' ? -300 : 300;
       sliderRefs.current[index].current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
+  const handleProductClick = (productId) => {
+    navigate(`/product-preview/${productId}`);
   };
 
   return (
@@ -41,10 +54,15 @@ function HomeScreen() {
           <img src="/logo.png" alt="Dank Deals Logo" />
           <h1>Dank Deals</h1>
         </div>
-        <div className="search-bar">
-          <input type="text" placeholder="Search products..." />
-          <button className="voice-search">🎤</button>
-        </div>
+        <form onSubmit={handleSearch} className="search-bar">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button type="submit" className="voice-search">🔍</button>
+        </form>
         <nav>
           <Link to="/cart">Cart</Link>
           <Link to="/profile">Profile</Link>
@@ -67,7 +85,7 @@ function HomeScreen() {
             <button className="slider-button left" onClick={() => slide('left', index)}>❮</button>
             <div className="product-slider" ref={sliderRefs.current[index]}>
               {mockProducts.map(product => (
-                <Link to={`/products/${product._id}`} key={product._id} className="product-tile">
+                <div key={product._id} className="product-tile" onClick={() => handleProductClick(product._id)}>
                   <img src={product.image} alt={product.name} />
                   <div className="product-info">
                     <h3>{product.name}</h3>
@@ -76,7 +94,7 @@ function HomeScreen() {
                     <p className="category">{product.category}</p>
                     <p className="thc">THC: {product.thcContent}%</p>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
             <button className="slider-button right" onClick={() => slide('right', index)}>❯</button>
