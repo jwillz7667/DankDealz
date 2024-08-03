@@ -29,14 +29,14 @@ function Cart() {
     return <div className="error-message">Error: {error}</div>;
   }
 
-  if (!cart || cart.items.length === 0) {
+  if (items.length === 0) {
     return <div>Your cart is empty</div>;
   }
 
   return (
     <div className="cart">
       <h2>Your Cart</h2>
-      {cart.items.map(item => (
+      {items.map(item => (
         <CartItem
           key={item._id}
           item={item}
@@ -45,7 +45,7 @@ function Cart() {
         />
       ))}
       <div className="cart-total">
-        <h3>Total: ${cart.total}</h3>
+        <h3>Total: ${total}</h3>
       </div>
       <Link to="/checkout" className="checkout-btn">Proceed to Checkout</Link>
     </div>
