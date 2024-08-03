@@ -5,6 +5,10 @@ import { useAuth } from '../contexts/AuthContext';
 function PrivateRoute({ children }) {
   const auth = useAuth();
 
+  if (!auth) {
+    return <Navigate to="/login" />;
+  }
+
   if (auth.loading) {
     return <div>Loading...</div>;
   }
