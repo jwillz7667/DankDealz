@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchCart, updateCartItem, removeItem } from '../slices/cartSlice';
+import { fetchCart, removeItem } from '../slices/cartSlice';
+import axios from 'axios';
 import Loading from './Loading';
 import CartItem from './CartItem';
 
@@ -13,8 +14,15 @@ function Cart() {
     dispatch(fetchCart());
   }, [dispatch]);
 
-  const updateQuantity = (itemId, newQuantity) => {
-    dispatch(updateCartItem({ itemId, quantity: newQuantity }));
+  const updateQuantity = async (itemId, newQuantity) => {
+    try {
+      await axios.put(`/api/cart/${itemId}`, { quantity: newQuantity }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+      });
+      dispatch(fetchCart());
+    } catch (error) {
+      console.error('Error updating cart item:', error);
+    }
   };
 
   const handleRemoveItem = (itemId) => {
