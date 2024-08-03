@@ -1,12 +1,10 @@
 import { lazy } from 'react';
 
-const WelcomeScreen = lazy(() => import('./components/WelcomeScreen'));
 const LoginScreen = lazy(() => import('./components/LoginScreen'));
 const RegistrationForm = lazy(() => import('./components/RegistrationForm'));
 const EmailVerificationScreen = lazy(() => import('./components/EmailVerificationScreen'));
 const ProfileSetup = lazy(() => import('./components/ProfileSetup'));
 const HomeScreen = lazy(() => import('./components/HomeScreen'));
-const ProductList = lazy(() => import('./components/ProductList'));
 const ProductDetails = lazy(() => import('./components/ProductDetails'));
 const Cart = lazy(() => import('./components/Cart'));
 const Checkout = lazy(() => import('./components/Checkout'));
