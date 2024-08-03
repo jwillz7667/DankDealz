@@ -68,6 +68,24 @@
 .left-menu.open + .main-content {
   margin-left: 300px;
 }
+
+body {
+  overflow-x: hidden;
+}
+
+.home-screen {
+  position: relative;
+}
+
+.main-content {
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+  width: 100%;
+}
+
+.left-menu.open + .main-content {
+  margin-left: 300px;
+  width: calc(100% - 300px);
+}
 .left-menu {
   position: fixed;
   top: 0;
