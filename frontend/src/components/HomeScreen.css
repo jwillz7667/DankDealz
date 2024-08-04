@@ -6,6 +6,7 @@
 .main-content {
   flex-grow: 1;
   transition: margin-left 0.3s ease-in-out;
+  margin-left: 40px; /* Add this line to move the content to the right */
 }
 
 .modern-header {
