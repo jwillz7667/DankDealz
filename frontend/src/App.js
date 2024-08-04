@@ -6,6 +6,11 @@ import Navbar from './components/Navbar';
 import PrivateRoute from './components/PrivateRoute';
 import routes from './routes';
 import HomeScreen from './components/HomeScreen';
+import ProductList from './components/ProductList';
+import Cart from './components/Cart';
+import UserProfile from './components/UserProfile';
+import OrderHistory from './components/OrderHistory';
+import Favorites from './components/Favorites';
 
 function App() {
   const isLoading = useSelector(state => state.auth.loading);
@@ -27,6 +32,11 @@ function App() {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
+          <Route path="/order-history" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
+          <Route path="/favorites" element={<PrivateRoute><Favorites /></PrivateRoute>} />
           {routes.map((route) => {
             console.log('Rendering route:', route.path);
             return route.private ? (

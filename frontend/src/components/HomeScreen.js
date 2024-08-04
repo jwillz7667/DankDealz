@@ -66,7 +66,7 @@ function HomeScreen() {
           <li><Link to="/profile">Profile</Link></li>
           <li><Link to="/order-history">Order History</Link></li>
           <li><Link to="/favorites">Favorites</Link></li>
-          <li><Link to="/user-profile">Account Settings</Link></li>
+          <li><Link to="/profile">Account Settings</Link></li>
         </ul>
         <h3>Categories</h3>
         <ul>
