@@ -44,3 +44,32 @@ function App() {
 }
 
 export default App;
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomeScreen from './components/HomeScreen';
+import ProductList from './components/ProductList';
+import ProductDetails from './components/ProductDetails';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
+import LoginScreen from './components/LoginScreen';
+import RegistrationForm from './components/RegistrationForm';
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/register" element={<RegistrationForm />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
