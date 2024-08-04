@@ -85,7 +85,6 @@ function HomeScreen() {
           <div className="logo">
             <img src="/logo.png" alt="DankDealz Logo" />
           </div>
-          <h1 className="site-title">DankDealz</h1>
           <form onSubmit={handleSearch} className="search-bar-small">
             <input
               type="text"
