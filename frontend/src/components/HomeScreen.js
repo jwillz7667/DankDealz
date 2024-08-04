@@ -60,19 +60,19 @@ function HomeScreen() {
         <button className="close-menu" onClick={toggleMenu}>×</button>
         <h2>Menu</h2>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/products">Products</Link></li>
-          <li><Link to="/cart">Cart</Link></li>
-          <li><Link to="/profile">Profile</Link></li>
-          <li><Link to="/order-history">Order History</Link></li>
-          <li><Link to="/favorites">Favorites</Link></li>
-          <li><Link to="/profile">Account Settings</Link></li>
+          <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
+          <li><Link to="/products" onClick={toggleMenu}>Products</Link></li>
+          <li><Link to="/cart" onClick={toggleMenu}>Cart</Link></li>
+          <li><Link to="/profile" onClick={toggleMenu}>Profile</Link></li>
+          <li><Link to="/order-history" onClick={toggleMenu}>Order History</Link></li>
+          <li><Link to="/favorites" onClick={toggleMenu}>Favorites</Link></li>
+          <li><Link to="/profile" onClick={toggleMenu}>Account Settings</Link></li>
         </ul>
         <h3>Categories</h3>
         <ul>
           {mockCategories.map(category => (
             <li key={category.slug}>
-              <Link to={`/category/${category.slug}`}>{category.name}</Link>
+              <Link to={`/products?category=${category.slug}`} onClick={toggleMenu}>{category.name}</Link>
             </li>
           ))}
         </ul>
