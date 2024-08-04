@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Loading from './components/Loading';
 import Navbar from './components/Navbar';
@@ -31,35 +31,33 @@ function App() {
   console.log('Rendering App component');
 
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/products" element={<ProductList />} />
-            <Route path="/products/:id" element={<ProductDetails />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/login" element={<LoginScreen />} />
-            <Route path="/register" element={<RegistrationForm />} />
-            <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
-            <Route path="/order-history" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
-            <Route path="/favorites" element={<PrivateRoute><Favorites /></PrivateRoute>} />
-            {routes.map((route) => {
-              console.log('Rendering route:', route.path);
-              return route.private ? (
-                <Route key={route.path} element={<PrivateRoute />}>
-                  <Route path={route.path} element={route.element} />
-                </Route>
-              ) : (
-                <Route key={route.path} path={route.path} element={route.element} />
-              );
-            })}
-          </Routes>
-        </Suspense>
-      </div>
-    </Router>
+    <div className="App">
+      <Navbar />
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
+          <Route path="/order-history" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
+          <Route path="/favorites" element={<PrivateRoute><Favorites /></PrivateRoute>} />
+          {routes.map((route) => {
+            console.log('Rendering route:', route.path);
+            return route.private ? (
+              <Route key={route.path} element={<PrivateRoute />}>
+                <Route path={route.path} element={route.element} />
+              </Route>
+            ) : (
+              <Route key={route.path} path={route.path} element={route.element} />
+            );
+          })}
+        </Routes>
+      </Suspense>
+    </div>
   );
 }
 
