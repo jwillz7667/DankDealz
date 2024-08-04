@@ -97,15 +97,6 @@ function HomeScreen() {
           </form>
         </header>
 
-        <div className="category-slider">
-          {mockCategories.map(category => (
-            <Link to={`/category/${category.slug}`} key={category.slug} className="category-item">
-              <img src={category.icon} alt={category.name} />
-              <span>{category.name}</span>
-            </Link>
-          ))}
-        </div>
-
         {recommendationCategories.map((category, index) => (
           <section className="product-section" key={category}>
             <h2>{category}</h2>
