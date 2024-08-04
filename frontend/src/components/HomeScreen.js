@@ -60,6 +60,10 @@ function HomeScreen() {
         <button className="close-menu" onClick={toggleMenu}>×</button>
         <h2>Menu</h2>
         <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/products">Products</Link></li>
+          <li><Link to="/cart">Cart</Link></li>
+          <li><Link to="/profile">Profile</Link></li>
           <li><Link to="/account">My Account</Link></li>
           <li><Link to="/orders">My Orders</Link></li>
           <li><Link to="/favorites">Favorites</Link></li>
@@ -82,19 +86,15 @@ function HomeScreen() {
             <img src="/logo.png" alt="DankDealz Logo" />
           </div>
           <h1 className="site-title">DankDealz</h1>
-          <nav>
-            <Link to="/cart">Cart</Link>
-            <Link to="/profile">Profile</Link>
-            <form onSubmit={handleSearch} className="search-bar-small">
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <button type="submit" className="search-button-small">🔍</button>
-            </form>
-          </nav>
+          <form onSubmit={handleSearch} className="search-bar-small">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type="submit" className="search-button-small">🔍</button>
+          </form>
         </header>
 
         <div className="category-slider">
