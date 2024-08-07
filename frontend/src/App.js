@@ -27,9 +27,11 @@ import OrderManagement from './components/OrderManagement';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
 import NotFound from './components/NotFound';
 import CategoryPage from './components/CategoryPage';
+import AccountSettings from './components/AccountSettings';
 
 function App() {
   const isLoading = useSelector(state => state.auth.loading);
+  const isAuthenticated = useSelector(state => state.auth.user !== null);
 
   useEffect(() => {
     console.log('App component mounted');
@@ -47,7 +49,7 @@ function App() {
       <Navbar />
       <Suspense fallback={<Loading />}>
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
+          <Route path="/" element={isAuthenticated ? <ProductList /> : <HomeScreen />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/category/:slug" element={<CategoryPage />} />
           <Route path="/products/:id" element={<ProductDetails />} />
@@ -60,6 +62,7 @@ function App() {
           <Route path="/verify" element={<EmailVerificationScreen />} />
           <Route path="/profile-setup" element={<ProfileSetup />} />
           <Route path="/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
+          <Route path="/account-settings" element={<PrivateRoute><AccountSettings /></PrivateRoute>} />
           <Route path="/order-history" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
           <Route path="/order/:id" element={<PrivateRoute><OrderDetails /></PrivateRoute>} />
           <Route path="/favorites" element={<PrivateRoute><Favorites /></PrivateRoute>} />
