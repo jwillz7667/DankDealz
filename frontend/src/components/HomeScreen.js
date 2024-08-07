@@ -72,7 +72,7 @@ function HomeScreen() {
         <ul>
           {mockCategories.map(category => (
             <li key={category.slug}>
-              <Link to={`/products?category=${category.slug}`} onClick={toggleMenu}>{category.name}</Link>
+              <Link to={`/category/${category.slug}`} onClick={toggleMenu}>{category.name}</Link>
             </li>
           ))}
         </ul>
