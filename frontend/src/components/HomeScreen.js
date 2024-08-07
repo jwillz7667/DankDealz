@@ -81,8 +81,8 @@ function HomeScreen() {
       <div className="main-content">
         <header className="modern-header">
           <button className="menu-toggle" onClick={toggleMenu}>☰</button>
-          <div className="logo">
-            <img src="/logo.png" alt="DankDealz Logo" />
+          <div className="logo-container">
+            <img src="/logo.png" alt="DankDealz Logo" className="logo" />
           </div>
           <form onSubmit={handleSearch} className="search-bar-small">
             <input
