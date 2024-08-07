@@ -12,18 +12,13 @@ const categories = [
   { slug: 'pre-rolls', name: 'Pre-Rolls' },
 ];
 
-const recentListings = [
-  { _id: '1', title: 'OG Kush', price: 50, location: 'Los Angeles, CA', date: '2023-08-05' },
-  { _id: '2', title: 'Blue Dream Cartridge', price: 40, location: 'San Francisco, CA', date: '2023-08-04' },
-  { _id: '3', title: 'Shatter Dabs', price: 30, location: 'Denver, CO', date: '2023-08-03' },
-  { _id: '4', title: 'Gummy Edibles', price: 25, location: 'Seattle, WA', date: '2023-08-02' },
-  { _id: '5', title: 'Pre-Roll Pack', price: 35, location: 'Portland, OR', date: '2023-08-01' },
-];
-
 function HomeScreen() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userLocation, setUserLocation] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [localListings, setLocalListings] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,24 +29,45 @@ function HomeScreen() {
         });
         const { latitude, longitude } = position.coords;
         const response = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
-        setUserLocation(response.data.city + ', ' + response.data.principalSubdivision);
+        const location = response.data.city + ', ' + response.data.principalSubdivision;
+        setUserLocation(location);
+        setSelectedLocation(location);
+        fetchLocalListings(location);
       } catch (error) {
         console.error('Error getting user location:', error);
+        setLoading(false);
       }
     };
 
     getUserLocation();
   }, []);
 
+  const fetchLocalListings = async (location) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`/api/listings?location=${encodeURIComponent(location)}`);
+      setLocalListings(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching local listings:', error);
+      setLoading(false);
+    }
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}&location=${encodeURIComponent(selectedLocation)}`);
     }
   };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLocationChange = (e) => {
+    setSelectedLocation(e.target.value);
+    fetchLocalListings(e.target.value);
   };
 
   return (
@@ -93,11 +109,15 @@ function HomeScreen() {
             <button type="submit" className="search-button-small">🔍</button>
           </form>
         </header>
-        {userLocation && (
-          <div className="user-location">
-            <p>Showing listings for: {userLocation}</p>
-          </div>
-        )}
+        <div className="location-selector">
+          <select value={selectedLocation} onChange={handleLocationChange}>
+            <option value={userLocation}>Your Location: {userLocation}</option>
+            <option value="New York, NY">New York, NY</option>
+            <option value="Los Angeles, CA">Los Angeles, CA</option>
+            <option value="Chicago, IL">Chicago, IL</option>
+            {/* Add more locations as needed */}
+          </select>
+        </div>
 
         <section className="categories-section">
           <h2>Browse Categories</h2>
@@ -110,18 +130,22 @@ function HomeScreen() {
           </div>
         </section>
 
-        <section className="recent-listings">
-          <h2>Recent Listings</h2>
-          <div className="listings-grid">
-            {recentListings.map(listing => (
-              <div key={listing._id} className="listing-card">
-                <h3>{listing.title}</h3>
-                {listing.price && <p className="price">${listing.price}</p>}
-                <p className="location">{listing.location}</p>
-                <p className="date">{listing.date}</p>
-              </div>
-            ))}
-          </div>
+        <section className="local-listings">
+          <h2>Local Listings in {selectedLocation}</h2>
+          {loading ? (
+            <p>Loading local listings...</p>
+          ) : (
+            <div className="listings-grid">
+              {localListings.map(listing => (
+                <div key={listing._id} className="listing-card">
+                  <h3>{listing.title}</h3>
+                  {listing.price && <p className="price">${listing.price}</p>}
+                  <p className="location">{listing.location}</p>
+                  <p className="date">{new Date(listing.createdAt).toLocaleDateString()}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>
