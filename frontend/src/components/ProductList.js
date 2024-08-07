@@ -1,30 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../slices/productSlice';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ProductList.css';
 import QuickView from './QuickView';
 
-// Shared constants for Tailwind class strings
-const hoverUnderlineClass = "hover:underline text-accent hover:text-accent-foreground transition duration-200";
-const cardClasses = "bg-card text-card-foreground p-4 rounded-lg transition-transform transform hover:scale-105 shadow-lg";
-const buttonClasses = "bg-secondary text-secondary-foreground px-4 py-2 rounded-lg shadow transform hover:scale-105 transition duration-200";
-const productDescriptionClasses = "mt-1 text-muted-foreground text-sm";
-
-const Header = () => {
-    return (
-        <header className="bg-primary text-primary-foreground p-4 flex justify-between items-center shadow-md">
-            <div className="text-3xl font-bold italic text-gradient">DankDealz</div>
-            <nav className="flex space-x-6">
-                <Link to="/" className={hoverUnderlineClass}>Home</Link>
-                <Link to="/shop" className={hoverUnderlineClass}>Shop</Link>
-                <Link to="/about" className={hoverUnderlineClass}>About</Link>
-                <Link to="/contact" className={hoverUnderlineClass}>Contact</Link>
-            </nav>
-        </header>
-    );
-};
+// ... (keep the existing constants and Header component)
 
 const ProductCard = ({ product, openQuickView, addToCart }) => {
     return (
@@ -40,14 +22,15 @@ const ProductCard = ({ product, openQuickView, addToCart }) => {
     );
 };
 
-function ProductList() {
+function ProductList({ categorySlug }) {
     const dispatch = useDispatch();
     const { products, loading, error } = useSelector(state => state.products || { products: [], loading: false, error: null });
     const [quickViewProduct, setQuickViewProduct] = useState(null);
+    const { slug } = useParams();
 
     useEffect(() => {
-        dispatch(fetchProducts());
-    }, [dispatch]);
+        dispatch(fetchProducts(categorySlug || slug));
+    }, [dispatch, categorySlug, slug]);
 
     const addToCart = async (productId) => {
         try {

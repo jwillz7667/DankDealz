@@ -3,9 +3,9 @@ import axios from 'axios';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async (filters, { rejectWithValue }) => {
+  async (categorySlug, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/api/products', { params: filters });
+      const response = await axios.get(`/api/products${categorySlug ? `?category=${categorySlug}` : ''}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching products:', error);
