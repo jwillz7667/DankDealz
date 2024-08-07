@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './HomeScreen.css';
 import './LeftMenu.css';
 
@@ -22,7 +23,25 @@ const recentListings = [
 function HomeScreen() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userLocation, setUserLocation] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getUserLocation = async () => {
+      try {
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+        const { latitude, longitude } = position.coords;
+        const response = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+        setUserLocation(response.data.city + ', ' + response.data.principalSubdivision);
+      } catch (error) {
+        console.error('Error getting user location:', error);
+      }
+    };
+
+    getUserLocation();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -74,6 +93,11 @@ function HomeScreen() {
             <button type="submit" className="search-button-small">🔍</button>
           </form>
         </header>
+        {userLocation && (
+          <div className="user-location">
+            <p>Showing listings for: {userLocation}</p>
+          </div>
+        )}
 
         <section className="categories-section">
           <h2>Browse Categories</h2>

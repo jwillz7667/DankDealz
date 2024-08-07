@@ -24,7 +24,26 @@ function ProductList({ categorySlug }) {
     const [location, setLocation] = useState('');
 
     useEffect(() => {
-        dispatch(fetchListings({ categorySlug: categorySlug || slug, location }));
+        const getUserLocation = async () => {
+            try {
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                });
+                const { latitude, longitude } = position.coords;
+                const response = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                setLocation(response.data.city + ', ' + response.data.principalSubdivision);
+            } catch (error) {
+                console.error('Error getting user location:', error);
+            }
+        };
+
+        getUserLocation();
+    }, []);
+
+    useEffect(() => {
+        if (location) {
+            dispatch(fetchListings({ categorySlug: categorySlug || slug, location }));
+        }
     }, [dispatch, categorySlug, slug, location]);
 
     const handleLocationChange = (e) => {
