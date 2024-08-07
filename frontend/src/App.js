@@ -48,6 +48,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/products" element={<ProductList />} />
+          <Route path="/category/:slug" element={<CategoryPage />} />
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/product-preview/:id" element={<ProductPreview />} />
           <Route path="/cart" element={<Cart />} />
