@@ -26,6 +26,7 @@ import ProductForm from './components/ProductForm';
 import OrderManagement from './components/OrderManagement';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
 import NotFound from './components/NotFound';
+import CategoryPage from './components/CategoryPage';
 
 function App() {
   const isLoading = useSelector(state => state.auth.loading);
