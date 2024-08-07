@@ -4,17 +4,25 @@ import { fetchListings } from '../slices/productSlice';
 import { Link, useParams } from 'react-router-dom';
 import './ProductList.css';
 
-const ListingCard = ({ listing }) => {
-    return (
-        <div className="listing-card">
-            <img src={listing.image || "https://placehold.co/300x200"} alt={listing.title} className="listing-image"/>
-            <h3 className="listing-title">{listing.title}</h3>
-            <p className="listing-price">${listing.price}</p>
-            <p className="listing-location">{listing.location}</p>
-            <p className="listing-date">{new Date(listing.date).toLocaleDateString()}</p>
-            <Link to={`/listing/${listing._id}`} className="view-listing-btn">View Listing</Link>
-        </div>
-    );
+const ListingCard = ({ listing, viewMode }) => {
+    if (viewMode === 'gallery') {
+        return (
+            <Link to={`/listing/${listing._id}`} className="listing-card gallery-view">
+                <img src={listing.image || "https://placehold.co/300x200"} alt={listing.title} className="listing-image"/>
+                <h3 className="listing-title">{listing.title}</h3>
+                <p className="listing-price">${listing.price}</p>
+                <p className="listing-location">{listing.location}</p>
+                <p className="listing-date">{new Date(listing.date).toLocaleDateString()}</p>
+            </Link>
+        );
+    } else {
+        return (
+            <Link to={`/listing/${listing._id}`} className="listing-card list-view">
+                <h3 className="listing-title">{listing.title}</h3>
+                <p className="listing-price">${listing.price}</p>
+            </Link>
+        );
+    }
 };
 
 function ProductList({ categorySlug }) {
@@ -22,6 +30,7 @@ function ProductList({ categorySlug }) {
     const { listings, loading, error } = useSelector(state => state.listings || { listings: [], loading: false, error: null });
     const { slug } = useParams();
     const [location, setLocation] = useState('');
+    const [viewMode, setViewMode] = useState('gallery');
 
     useEffect(() => {
         const getUserLocation = async () => {
@@ -64,10 +73,14 @@ function ProductList({ categorySlug }) {
                     onChange={handleLocationChange}
                 />
             </div>
-            <div className="listings-grid">
+            <div className="view-mode-toggle">
+                <button onClick={() => setViewMode('gallery')} className={viewMode === 'gallery' ? 'active' : ''}>Gallery View</button>
+                <button onClick={() => setViewMode('list')} className={viewMode === 'list' ? 'active' : ''}>List View</button>
+            </div>
+            <div className={`listings-${viewMode}`}>
                 {listings && listings.length > 0 ? (
                     listings.map((listing) => (
-                        <ListingCard key={listing._id} listing={listing} />
+                        <ListingCard key={listing._id} listing={listing} viewMode={viewMode} />
                     ))
                 ) : (
                     <div>No listings available in this location</div>

@@ -5,3 +5,71 @@
   color: transparent;
   background-image: linear-gradient(45deg, #4CAF50, #2196F3);
 }
+
+.listings-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.listings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.listing-card {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s;
+}
+
+.listing-card:hover {
+  transform: translateY(-5px);
+}
+
+.gallery-view {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.gallery-view .listing-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.gallery-view .listing-title,
+.gallery-view .listing-price,
+.gallery-view .listing-location,
+.gallery-view .listing-date {
+  padding: 5px 10px;
+}
+
+.list-view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.view-mode-toggle {
+  margin-bottom: 20px;
+}
+
+.view-mode-toggle button {
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-mode-toggle button.active {
+  background-color: #4CAF50;
+  color: white;
+}
