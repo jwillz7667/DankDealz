@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchListings } from '../slices/productSlice';
 import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 import './ProductList.css';
 
 const ListingCard = ({ listing, viewMode }) => {
