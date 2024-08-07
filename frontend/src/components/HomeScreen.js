@@ -45,8 +45,30 @@ function HomeScreen() {
   const fetchLocalListings = async (location) => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/listings?location=${encodeURIComponent(location)}`);
-      setLocalListings(response.data);
+      // For demonstration purposes, we'll use mock data instead of making an API call
+      const mockListings = [
+        { _id: '1', title: 'Cozy Uptown Apartment', price: 1200, image: 'https://example.com/apartment1.jpg', location: 'Uptown, Minneapolis, MN', createdAt: '2023-08-01T12:00:00Z' },
+        { _id: '2', title: 'Downtown Loft with Skyline View', price: 1800, image: 'https://example.com/loft1.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-02T14:30:00Z' },
+        { _id: '3', title: 'Charming Northeast Bungalow', price: 1500, image: 'https://example.com/house1.jpg', location: 'Northeast, Minneapolis, MN', createdAt: '2023-08-03T09:15:00Z' },
+        { _id: '4', title: 'Modern Condo near US Bank Stadium', price: 2000, image: 'https://example.com/condo1.jpg', location: 'Downtown East, Minneapolis, MN', createdAt: '2023-08-04T16:45:00Z' },
+        { _id: '5', title: 'Spacious Family Home in Southwest', price: 2200, image: 'https://example.com/house2.jpg', location: 'Southwest, Minneapolis, MN', createdAt: '2023-08-05T11:20:00Z' },
+        { _id: '6', title: 'Renovated Warehouse Apartment', price: 1600, image: 'https://example.com/apartment2.jpg', location: 'North Loop, Minneapolis, MN', createdAt: '2023-08-06T13:10:00Z' },
+        { _id: '7', title: 'Lakeside Studio with Great Views', price: 1100, image: 'https://example.com/studio1.jpg', location: 'Bde Maka Ska, Minneapolis, MN', createdAt: '2023-08-07T10:30:00Z' },
+        { _id: '8', title: 'Historic Brownstone in Loring Park', price: 1900, image: 'https://example.com/brownstone1.jpg', location: 'Loring Park, Minneapolis, MN', createdAt: '2023-08-08T15:00:00Z' },
+        { _id: '9', title: 'Eco-Friendly Tiny House', price: 900, image: 'https://example.com/tinyhouse1.jpg', location: 'Seward, Minneapolis, MN', createdAt: '2023-08-09T08:45:00Z' },
+        { _id: '10', title: 'Artist Loft in Northeast', price: 1400, image: 'https://example.com/loft2.jpg', location: 'Northeast, Minneapolis, MN', createdAt: '2023-08-10T17:20:00Z' },
+        { _id: '11', title: 'Luxury Penthouse with Rooftop Terrace', price: 3500, image: 'https://example.com/penthouse1.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-11T12:15:00Z' },
+        { _id: '12', title: 'Cozy Cottage near Minnehaha Falls', price: 1300, image: 'https://example.com/cottage1.jpg', location: 'Minnehaha, Minneapolis, MN', createdAt: '2023-08-12T14:00:00Z' },
+        { _id: '13', title: 'Modern Townhouse in Uptown', price: 2100, image: 'https://example.com/townhouse1.jpg', location: 'Uptown, Minneapolis, MN', createdAt: '2023-08-13T09:30:00Z' },
+        { _id: '14', title: 'Riverside Apartment with Balcony', price: 1700, image: 'https://example.com/apartment3.jpg', location: 'St. Anthony Main, Minneapolis, MN', createdAt: '2023-08-14T16:10:00Z' },
+        { _id: '15', title: 'Converted Church Loft', price: 2300, image: 'https://example.com/loft3.jpg', location: 'Whittier, Minneapolis, MN', createdAt: '2023-08-15T11:45:00Z' },
+        { _id: '16', title: 'Stylish Studio in North Loop', price: 1250, image: 'https://example.com/studio2.jpg', location: 'North Loop, Minneapolis, MN', createdAt: '2023-08-16T13:30:00Z' },
+        { _id: '17', title: 'Family-Friendly Home near Lakes', price: 2400, image: 'https://example.com/house3.jpg', location: 'Linden Hills, Minneapolis, MN', createdAt: '2023-08-17T10:00:00Z' },
+        { _id: '18', title: 'Industrial Chic Loft in Mill District', price: 1950, image: 'https://example.com/loft4.jpg', location: 'Mill District, Minneapolis, MN', createdAt: '2023-08-18T15:20:00Z' },
+        { _id: '19', title: 'Charming Duplex in Powderhorn', price: 1550, image: 'https://example.com/duplex1.jpg', location: 'Powderhorn, Minneapolis, MN', createdAt: '2023-08-19T08:30:00Z' },
+        { _id: '20', title: 'Sleek High-Rise Apartment', price: 2600, image: 'https://example.com/apartment4.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-20T17:00:00Z' }
+      ];
+      setLocalListings(mockListings);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching local listings:', error);
