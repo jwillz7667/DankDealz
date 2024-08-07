@@ -6,7 +6,9 @@ import axios from 'axios';
 import './ProductList.css';
 import QuickView from './QuickView';
 
-// ... (keep the existing constants and Header component)
+const cardClasses = "bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300";
+const productDescriptionClasses = "text-gray-600 mt-2 text-sm";
+const buttonClasses = "bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition duration-300";
 
 const ProductCard = ({ product, openQuickView, addToCart }) => {
     return (
@@ -52,7 +54,6 @@ function ProductList({ categorySlug }) {
 
     return (
         <div className="bg-background min-h-screen text-foreground">
-            <Header />
             <main className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 {products && products.length > 0 ? (
                     products.map((product) => (
