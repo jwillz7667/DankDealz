@@ -3,9 +3,14 @@ import axios from 'axios';
 
 export const fetchListings = createAsyncThunk(
   'listings/fetchListings',
-  async (categorySlug, { rejectWithValue }) => {
+  async ({ categorySlug, location }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/listings${categorySlug ? `?category=${categorySlug}` : ''}`);
+      const response = await axios.get('/api/listings', {
+        params: {
+          category: categorySlug,
+          location: location
+        }
+      });
       return response.data;
     } catch (error) {
       console.error('Error fetching listings:', error);

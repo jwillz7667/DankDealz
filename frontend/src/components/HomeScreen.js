@@ -4,19 +4,19 @@ import './HomeScreen.css';
 import './LeftMenu.css';
 
 const categories = [
-  { slug: 'for-sale', name: 'For Sale' },
-  { slug: 'housing', name: 'Housing' },
-  { slug: 'jobs', name: 'Jobs' },
-  { slug: 'services', name: 'Services' },
-  { slug: 'community', name: 'Community' },
+  { slug: 'flower', name: 'Flower' },
+  { slug: 'cartridges', name: 'Cartridges' },
+  { slug: 'dabs', name: 'Dabs' },
+  { slug: 'edibles', name: 'Edibles' },
+  { slug: 'pre-rolls', name: 'Pre-Rolls' },
 ];
 
 const recentListings = [
-  { _id: '1', title: 'Used Sofa for Sale', price: 150, location: 'Downtown', date: '2023-08-05' },
-  { _id: '2', title: 'Room for Rent', price: 800, location: 'Suburbs', date: '2023-08-04' },
-  { _id: '3', title: 'Web Developer Needed', price: null, location: 'Remote', date: '2023-08-03' },
-  { _id: '4', title: 'Lawn Mowing Services', price: 50, location: 'Local', date: '2023-08-02' },
-  { _id: '5', title: 'Community Garage Sale', price: null, location: 'Neighborhood', date: '2023-08-01' },
+  { _id: '1', title: 'OG Kush', price: 50, location: 'Los Angeles, CA', date: '2023-08-05' },
+  { _id: '2', title: 'Blue Dream Cartridge', price: 40, location: 'San Francisco, CA', date: '2023-08-04' },
+  { _id: '3', title: 'Shatter Dabs', price: 30, location: 'Denver, CO', date: '2023-08-03' },
+  { _id: '4', title: 'Gummy Edibles', price: 25, location: 'Seattle, WA', date: '2023-08-02' },
+  { _id: '5', title: 'Pre-Roll Pack', price: 35, location: 'Portland, OR', date: '2023-08-01' },
 ];
 
 function HomeScreen() {

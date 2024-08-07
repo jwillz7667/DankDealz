@@ -21,10 +21,15 @@ function ProductList({ categorySlug }) {
     const dispatch = useDispatch();
     const { listings, loading, error } = useSelector(state => state.listings || { listings: [], loading: false, error: null });
     const { slug } = useParams();
+    const [location, setLocation] = useState('');
 
     useEffect(() => {
-        dispatch(fetchListings(categorySlug || slug));
-    }, [dispatch, categorySlug, slug]);
+        dispatch(fetchListings({ categorySlug: categorySlug || slug, location }));
+    }, [dispatch, categorySlug, slug, location]);
+
+    const handleLocationChange = (e) => {
+        setLocation(e.target.value);
+    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -32,13 +37,21 @@ function ProductList({ categorySlug }) {
     return (
         <div className="listings-container">
             <h2>{categorySlug || slug} Listings</h2>
+            <div className="location-filter">
+                <input
+                    type="text"
+                    placeholder="Enter location (e.g., city, state)"
+                    value={location}
+                    onChange={handleLocationChange}
+                />
+            </div>
             <div className="listings-grid">
                 {listings && listings.length > 0 ? (
                     listings.map((listing) => (
                         <ListingCard key={listing._id} listing={listing} />
                     ))
                 ) : (
-                    <div>No listings available</div>
+                    <div>No listings available in this location</div>
                 )}
             </div>
         </div>
