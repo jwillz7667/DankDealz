@@ -1,53 +1,34 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './HomeScreen.css';
 import './LeftMenu.css';
-import './LeftMenu.css';
 
-// Mock data for placeholders
-const mockCategories = [
-  { slug: 'flower', name: 'Flower', icon: '/icons/flower.png' },
-  { slug: 'edibles', name: 'Edibles', icon: '/icons/edibles.png' },
-  { slug: 'concentrates', name: 'Concentrates', icon: '/icons/concentrates.png' },
-  { slug: 'vapes', name: 'Vapes', icon: '/icons/vapes.png' },
-  { slug: 'accessories', name: 'Accessories', icon: '/icons/accessories.png' },
+const categories = [
+  { slug: 'for-sale', name: 'For Sale' },
+  { slug: 'housing', name: 'Housing' },
+  { slug: 'jobs', name: 'Jobs' },
+  { slug: 'services', name: 'Services' },
+  { slug: 'community', name: 'Community' },
 ];
 
-const mockProducts = [
-  { _id: '1', name: 'OG Kush', price: 35.99, rating: 4.5, numReviews: 120, image: '/images/og-kush.jpg', category: 'Flower', thcContent: 22 },
-  { _id: '2', name: 'Blue Dream', price: 32.99, rating: 4.3, numReviews: 98, image: '/images/blue-dream.jpg', category: 'Flower', thcContent: 18 },
-  { _id: '3', name: 'Sour Diesel', price: 37.99, rating: 4.7, numReviews: 150, image: '/images/sour-diesel.jpg', category: 'Flower', thcContent: 25 },
-  { _id: '4', name: 'Girl Scout Cookies', price: 39.99, rating: 4.8, numReviews: 200, image: '/images/gsc.jpg', category: 'Flower', thcContent: 28 },
-  { _id: '5', name: 'Gelato', price: 36.99, rating: 4.6, numReviews: 180, image: '/images/gelato.jpg', category: 'Flower', thcContent: 20 },
-];
-
-const recommendationCategories = [
-  'Top Sellers', 'New Arrivals', 'High THC', 'CBD Dominant', 'Sativa Strains',
-  'Indica Strains', 'Hybrid Strains', 'Edibles', 'Concentrates', 'Vape Cartridges'
+const recentListings = [
+  { _id: '1', title: 'Used Sofa for Sale', price: 150, location: 'Downtown', date: '2023-08-05' },
+  { _id: '2', title: 'Room for Rent', price: 800, location: 'Suburbs', date: '2023-08-04' },
+  { _id: '3', title: 'Web Developer Needed', price: null, location: 'Remote', date: '2023-08-03' },
+  { _id: '4', title: 'Lawn Mowing Services', price: 50, location: 'Local', date: '2023-08-02' },
+  { _id: '5', title: 'Community Garage Sale', price: null, location: 'Neighborhood', date: '2023-08-01' },
 ];
 
 function HomeScreen() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const sliderRefs = useRef(recommendationCategories.map(() => React.createRef()));
   const navigate = useNavigate();
-
-  const slide = (direction, index) => {
-    if (sliderRefs.current[index].current) {
-      const scrollAmount = direction === 'left' ? -300 : 300;
-      sliderRefs.current[index].current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
     }
-  };
-
-  const handleProductClick = (productId) => {
-    navigate(`/product-preview/${productId}`);
   };
 
   const toggleMenu = () => {
@@ -61,20 +42,19 @@ function HomeScreen() {
         <h2>Menu</h2>
         <ul>
           <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
-          <li><Link to="/products" onClick={toggleMenu}>Products</Link></li>
-          <li><Link to="/cart" onClick={toggleMenu}>Cart</Link></li>
+          <li><Link to="/post-listing" onClick={toggleMenu}>Post a Listing</Link></li>
+          <li><Link to="/my-listings" onClick={toggleMenu}>My Listings</Link></li>
+          <li><Link to="/messages" onClick={toggleMenu}>Messages</Link></li>
           <li><Link to="/profile" onClick={toggleMenu}>Profile</Link></li>
-          <li><Link to="/order-history" onClick={toggleMenu}>Order History</Link></li>
-          <li><Link to="/favorites" onClick={toggleMenu}>Favorites</Link></li>
-          <li><Link to="/profile" onClick={toggleMenu}>Account Settings</Link></li>
+          <li><Link to="/account-settings" onClick={toggleMenu}>Account Settings</Link></li>
         </ul>
         <h3>Categories</h3>
         <ul>
-          <li><Link to="/flower" onClick={toggleMenu}>Flower</Link></li>
-          <li><Link to="/edibles" onClick={toggleMenu}>Edibles</Link></li>
-          <li><Link to="/concentrates" onClick={toggleMenu}>Concentrates</Link></li>
-          <li><Link to="/vapes" onClick={toggleMenu}>Vapes</Link></li>
-          <li><Link to="/accessories" onClick={toggleMenu}>Accessories</Link></li>
+          {categories.map(category => (
+            <li key={category.slug}>
+              <Link to={`/category/${category.slug}`} onClick={toggleMenu}>{category.name}</Link>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -82,12 +62,12 @@ function HomeScreen() {
         <header className="modern-header">
           <button className="menu-toggle" onClick={toggleMenu}>☰</button>
           <div className="logo-container">
-            <img src="/logo.png" alt="DankDealz Logo" className="logo" />
+            <img src="/logo.png" alt="Marketplace Logo" className="logo" />
           </div>
           <form onSubmit={handleSearch} className="search-bar-small">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search listings..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -95,29 +75,30 @@ function HomeScreen() {
           </form>
         </header>
 
-        {recommendationCategories.map((category, index) => (
-          <section className="product-section" key={category}>
-            <h2>{category}</h2>
-            <div className="slider-container">
-              <button className="slider-button left" onClick={() => slide('left', index)}>❮</button>
-              <div className="product-slider" ref={sliderRefs.current[index]}>
-                {mockProducts.map(product => (
-                  <div key={product._id} className="product-tile" onClick={() => handleProductClick(product._id)}>
-                    <img src={product.image} alt={product.name} />
-                    <div className="product-info">
-                      <h3>{product.name}</h3>
-                      <p className="price">${product.price}</p>
-                      <p className="rating">★ {product.rating} ({product.numReviews})</p>
-                      <p className="category">{product.category}</p>
-                      <p className="thc">THC: {product.thcContent}%</p>
-                    </div>
-                  </div>
-                ))}
+        <section className="categories-section">
+          <h2>Browse Categories</h2>
+          <div className="category-grid">
+            {categories.map(category => (
+              <Link to={`/category/${category.slug}`} key={category.slug} className="category-card">
+                <h3>{category.name}</h3>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="recent-listings">
+          <h2>Recent Listings</h2>
+          <div className="listings-grid">
+            {recentListings.map(listing => (
+              <div key={listing._id} className="listing-card">
+                <h3>{listing.title}</h3>
+                {listing.price && <p className="price">${listing.price}</p>}
+                <p className="location">{listing.location}</p>
+                <p className="date">{listing.date}</p>
               </div>
-              <button className="slider-button right" onClick={() => slide('right', index)}>❯</button>
-            </div>
-          </section>
-        ))}
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

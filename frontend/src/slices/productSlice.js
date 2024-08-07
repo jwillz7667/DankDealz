@@ -1,43 +1,43 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchProducts = createAsyncThunk(
-  'products/fetchProducts',
+export const fetchListings = createAsyncThunk(
+  'listings/fetchListings',
   async (categorySlug, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/products${categorySlug ? `?category=${categorySlug}` : ''}`);
+      const response = await axios.get(`/api/listings${categorySlug ? `?category=${categorySlug}` : ''}`);
       return response.data;
     } catch (error) {
-      console.error('Error fetching products:', error);
-      return rejectWithValue(error.response?.data || 'An error occurred while fetching products');
+      console.error('Error fetching listings:', error);
+      return rejectWithValue(error.response?.data || 'An error occurred while fetching listings');
     }
   }
 );
 
-const productSlice = createSlice({
-  name: 'products',
+const listingSlice = createSlice({
+  name: 'listings',
   initialState: {
-    products: [],
+    listings: [],
     loading: false,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProducts.pending, (state) => {
+      .addCase(fetchListings.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
+      .addCase(fetchListings.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.listings = action.payload;
         state.error = null;
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(fetchListings.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   },
 });
 
-export default productSlice.reducer;
+export default listingSlice.reducer;
