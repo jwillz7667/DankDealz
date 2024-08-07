@@ -18,6 +18,11 @@ const ProductForm = lazy(() => import('./components/ProductForm'));
 const OrderManagement = lazy(() => import('./components/OrderManagement'));
 const AnalyticsDashboard = lazy(() => import('./components/AnalyticsDashboard'));
 const NotFound = lazy(() => import('./components/NotFound'));
+const FlowerPage = lazy(() => import('./components/FlowerPage'));
+const EdiblesPage = lazy(() => import('./components/EdiblesPage'));
+const ConcentratesPage = lazy(() => import('./components/ConcentratesPage'));
+const VapesPage = lazy(() => import('./components/VapesPage'));
+const AccessoriesPage = lazy(() => import('./components/AccessoriesPage'));
 
 const routes = [
   { path: "/login", element: <LoginScreen /> },
@@ -38,7 +43,12 @@ const routes = [
   { path: "/supplier/products/:id/edit", element: <ProductForm />, private: true },
   { path: "/supplier/orders", element: <OrderManagement />, private: true },
   { path: "/supplier/analytics", element: <AnalyticsDashboard />, private: true },
-  { path: "*", element: <NotFound /> }
+  { path: "*", element: <NotFound /> },
+  { path: "/flower", element: <FlowerPage /> },
+  { path: "/edibles", element: <EdiblesPage /> },
+  { path: "/concentrates", element: <ConcentratesPage /> },
+  { path: "/vapes", element: <VapesPage /> },
+  { path: "/accessories", element: <AccessoriesPage /> }
 ];
 
 export default routes;
