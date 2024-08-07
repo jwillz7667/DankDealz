@@ -6,10 +6,13 @@ import './LeftMenu.css';
 
 const categories = [
   { slug: 'flower', name: 'Flower' },
-  { slug: 'cartridges', name: 'Cartridges' },
-  { slug: 'dabs', name: 'Dabs' },
   { slug: 'edibles', name: 'Edibles' },
+  { slug: 'concentrates', name: 'Concentrates' },
+  { slug: 'vapes', name: 'Vapes' },
   { slug: 'pre-rolls', name: 'Pre-Rolls' },
+  { slug: 'cbd', name: 'CBD' },
+  { slug: 'accessories', name: 'Accessories' },
+  { slug: 'tinctures', name: 'Tinctures' },
 ];
 
 function HomeScreen() {
@@ -47,26 +50,26 @@ function HomeScreen() {
       setLoading(true);
       // For demonstration purposes, we'll use mock data instead of making an API call
       const mockListings = [
-        { _id: '1', title: 'Cozy Uptown Apartment', price: 1200, image: 'https://example.com/apartment1.jpg', location: 'Uptown, Minneapolis, MN', createdAt: '2023-08-01T12:00:00Z' },
-        { _id: '2', title: 'Downtown Loft with Skyline View', price: 1800, image: 'https://example.com/loft1.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-02T14:30:00Z' },
-        { _id: '3', title: 'Charming Northeast Bungalow', price: 1500, image: 'https://example.com/house1.jpg', location: 'Northeast, Minneapolis, MN', createdAt: '2023-08-03T09:15:00Z' },
-        { _id: '4', title: 'Modern Condo near US Bank Stadium', price: 2000, image: 'https://example.com/condo1.jpg', location: 'Downtown East, Minneapolis, MN', createdAt: '2023-08-04T16:45:00Z' },
-        { _id: '5', title: 'Spacious Family Home in Southwest', price: 2200, image: 'https://example.com/house2.jpg', location: 'Southwest, Minneapolis, MN', createdAt: '2023-08-05T11:20:00Z' },
-        { _id: '6', title: 'Renovated Warehouse Apartment', price: 1600, image: 'https://example.com/apartment2.jpg', location: 'North Loop, Minneapolis, MN', createdAt: '2023-08-06T13:10:00Z' },
-        { _id: '7', title: 'Lakeside Studio with Great Views', price: 1100, image: 'https://example.com/studio1.jpg', location: 'Bde Maka Ska, Minneapolis, MN', createdAt: '2023-08-07T10:30:00Z' },
-        { _id: '8', title: 'Historic Brownstone in Loring Park', price: 1900, image: 'https://example.com/brownstone1.jpg', location: 'Loring Park, Minneapolis, MN', createdAt: '2023-08-08T15:00:00Z' },
-        { _id: '9', title: 'Eco-Friendly Tiny House', price: 900, image: 'https://example.com/tinyhouse1.jpg', location: 'Seward, Minneapolis, MN', createdAt: '2023-08-09T08:45:00Z' },
-        { _id: '10', title: 'Artist Loft in Northeast', price: 1400, image: 'https://example.com/loft2.jpg', location: 'Northeast, Minneapolis, MN', createdAt: '2023-08-10T17:20:00Z' },
-        { _id: '11', title: 'Luxury Penthouse with Rooftop Terrace', price: 3500, image: 'https://example.com/penthouse1.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-11T12:15:00Z' },
-        { _id: '12', title: 'Cozy Cottage near Minnehaha Falls', price: 1300, image: 'https://example.com/cottage1.jpg', location: 'Minnehaha, Minneapolis, MN', createdAt: '2023-08-12T14:00:00Z' },
-        { _id: '13', title: 'Modern Townhouse in Uptown', price: 2100, image: 'https://example.com/townhouse1.jpg', location: 'Uptown, Minneapolis, MN', createdAt: '2023-08-13T09:30:00Z' },
-        { _id: '14', title: 'Riverside Apartment with Balcony', price: 1700, image: 'https://example.com/apartment3.jpg', location: 'St. Anthony Main, Minneapolis, MN', createdAt: '2023-08-14T16:10:00Z' },
-        { _id: '15', title: 'Converted Church Loft', price: 2300, image: 'https://example.com/loft3.jpg', location: 'Whittier, Minneapolis, MN', createdAt: '2023-08-15T11:45:00Z' },
-        { _id: '16', title: 'Stylish Studio in North Loop', price: 1250, image: 'https://example.com/studio2.jpg', location: 'North Loop, Minneapolis, MN', createdAt: '2023-08-16T13:30:00Z' },
-        { _id: '17', title: 'Family-Friendly Home near Lakes', price: 2400, image: 'https://example.com/house3.jpg', location: 'Linden Hills, Minneapolis, MN', createdAt: '2023-08-17T10:00:00Z' },
-        { _id: '18', title: 'Industrial Chic Loft in Mill District', price: 1950, image: 'https://example.com/loft4.jpg', location: 'Mill District, Minneapolis, MN', createdAt: '2023-08-18T15:20:00Z' },
-        { _id: '19', title: 'Charming Duplex in Powderhorn', price: 1550, image: 'https://example.com/duplex1.jpg', location: 'Powderhorn, Minneapolis, MN', createdAt: '2023-08-19T08:30:00Z' },
-        { _id: '20', title: 'Sleek High-Rise Apartment', price: 2600, image: 'https://example.com/apartment4.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-20T17:00:00Z' }
+        { _id: '1', title: 'OG Kush', price: 35.99, image: 'https://example.com/og-kush.jpg', location: 'Uptown, Minneapolis, MN', createdAt: '2023-08-01T12:00:00Z', thcContent: 22, cbdContent: 0.1, category: 'Flower' },
+        { _id: '2', title: 'Blue Dream', price: 32.99, image: 'https://example.com/blue-dream.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-02T14:30:00Z', thcContent: 18, cbdContent: 0.2, category: 'Flower' },
+        { _id: '3', title: 'Sour Diesel', price: 37.99, image: 'https://example.com/sour-diesel.jpg', location: 'Northeast, Minneapolis, MN', createdAt: '2023-08-03T09:15:00Z', thcContent: 25, cbdContent: 0.1, category: 'Flower' },
+        { _id: '4', title: 'Girl Scout Cookies', price: 39.99, image: 'https://example.com/gsc.jpg', location: 'Downtown East, Minneapolis, MN', createdAt: '2023-08-04T16:45:00Z', thcContent: 28, cbdContent: 0.1, category: 'Flower' },
+        { _id: '5', title: 'Gelato', price: 36.99, image: 'https://example.com/gelato.jpg', location: 'Southwest, Minneapolis, MN', createdAt: '2023-08-05T11:20:00Z', thcContent: 20, cbdContent: 0.1, category: 'Flower' },
+        { _id: '6', title: 'Wedding Cake', price: 38.99, image: 'https://example.com/wedding-cake.jpg', location: 'North Loop, Minneapolis, MN', createdAt: '2023-08-06T13:10:00Z', thcContent: 24, cbdContent: 0.1, category: 'Flower' },
+        { _id: '7', title: 'Purple Punch', price: 34.99, image: 'https://example.com/purple-punch.jpg', location: 'Bde Maka Ska, Minneapolis, MN', createdAt: '2023-08-07T10:30:00Z', thcContent: 19, cbdContent: 0.1, category: 'Flower' },
+        { _id: '8', title: 'Gorilla Glue', price: 36.99, image: 'https://example.com/gorilla-glue.jpg', location: 'Loring Park, Minneapolis, MN', createdAt: '2023-08-08T15:00:00Z', thcContent: 26, cbdContent: 0.1, category: 'Flower' },
+        { _id: '9', title: 'Jack Herer', price: 33.99, image: 'https://example.com/jack-herer.jpg', location: 'Seward, Minneapolis, MN', createdAt: '2023-08-09T08:45:00Z', thcContent: 21, cbdContent: 0.1, category: 'Flower' },
+        { _id: '10', title: 'Northern Lights', price: 31.99, image: 'https://example.com/northern-lights.jpg', location: 'Northeast, Minneapolis, MN', createdAt: '2023-08-10T17:20:00Z', thcContent: 17, cbdContent: 0.1, category: 'Flower' },
+        { _id: '11', title: 'Gummy Bears', price: 25.99, image: 'https://example.com/gummy-bears.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-11T12:15:00Z', thcContent: 10, category: 'Edibles' },
+        { _id: '12', title: 'Chocolate Bar', price: 22.99, image: 'https://example.com/chocolate-bar.jpg', location: 'Minnehaha, Minneapolis, MN', createdAt: '2023-08-12T14:00:00Z', thcContent: 100, category: 'Edibles' },
+        { _id: '13', title: 'Vape Cartridge - OG Kush', price: 45.99, image: 'https://example.com/vape-og-kush.jpg', location: 'Uptown, Minneapolis, MN', createdAt: '2023-08-13T09:30:00Z', thcContent: 85, category: 'Vapes' },
+        { _id: '14', title: 'Shatter - Blue Dream', price: 50.99, image: 'https://example.com/shatter-blue-dream.jpg', location: 'St. Anthony Main, Minneapolis, MN', createdAt: '2023-08-14T16:10:00Z', thcContent: 80, category: 'Concentrates' },
+        { _id: '15', title: 'Pre-Roll Pack', price: 29.99, image: 'https://example.com/pre-roll-pack.jpg', location: 'Whittier, Minneapolis, MN', createdAt: '2023-08-15T11:45:00Z', thcContent: 22, cbdContent: 0.1, category: 'Pre-Rolls' },
+        { _id: '16', title: 'CBD Oil', price: 59.99, image: 'https://example.com/cbd-oil.jpg', location: 'North Loop, Minneapolis, MN', createdAt: '2023-08-16T13:30:00Z', cbdContent: 1000, category: 'CBD' },
+        { _id: '17', title: 'Grinder', price: 24.99, image: 'https://example.com/grinder.jpg', location: 'Linden Hills, Minneapolis, MN', createdAt: '2023-08-17T10:00:00Z', category: 'Accessories' },
+        { _id: '18', title: 'Rolling Papers', price: 3.99, image: 'https://example.com/rolling-papers.jpg', location: 'Mill District, Minneapolis, MN', createdAt: '2023-08-18T15:20:00Z', category: 'Accessories' },
+        { _id: '19', title: 'Bong', price: 79.99, image: 'https://example.com/bong.jpg', location: 'Powderhorn, Minneapolis, MN', createdAt: '2023-08-19T08:30:00Z', category: 'Accessories' },
+        { _id: '20', title: 'THC Tincture', price: 54.99, image: 'https://example.com/tincture.jpg', location: 'Downtown, Minneapolis, MN', createdAt: '2023-08-20T17:00:00Z', thcContent: 300, category: 'Tinctures' }
       ];
       setLocalListings(mockListings);
       setLoading(false);
@@ -162,8 +165,11 @@ function HomeScreen() {
                 <Link to={`/listing/${listing._id}`} key={listing._id} className="listing-card">
                   <img src={listing.image} alt={listing.title} className="listing-image" />
                   <h3>{listing.title}</h3>
-                  {listing.price && <p className="price">${listing.price.toFixed(2)}</p>}
+                  <p className="price">${listing.price.toFixed(2)}</p>
                   <p className="location">{listing.location}</p>
+                  <p className="category">{listing.category}</p>
+                  {listing.thcContent && <p className="thc">THC: {listing.thcContent}%</p>}
+                  {listing.cbdContent && <p className="cbd">CBD: {listing.cbdContent}%</p>}
                   <p className="date">{new Date(listing.createdAt).toLocaleDateString()}</p>
                 </Link>
               ))}
