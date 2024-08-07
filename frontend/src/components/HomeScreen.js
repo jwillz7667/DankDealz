@@ -137,12 +137,13 @@ function HomeScreen() {
           ) : (
             <div className="listings-grid">
               {localListings.map(listing => (
-                <div key={listing._id} className="listing-card">
+                <Link to={`/listing/${listing._id}`} key={listing._id} className="listing-card">
+                  <img src={listing.image} alt={listing.title} className="listing-image" />
                   <h3>{listing.title}</h3>
-                  {listing.price && <p className="price">${listing.price}</p>}
+                  {listing.price && <p className="price">${listing.price.toFixed(2)}</p>}
                   <p className="location">{listing.location}</p>
                   <p className="date">{new Date(listing.createdAt).toLocaleDateString()}</p>
-                </div>
+                </Link>
               ))}
             </div>
           )}

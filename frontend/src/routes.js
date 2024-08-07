@@ -23,6 +23,7 @@ const EdiblesPage = lazy(() => import('./components/EdiblesPage'));
 const ConcentratesPage = lazy(() => import('./components/ConcentratesPage'));
 const VapesPage = lazy(() => import('./components/VapesPage'));
 const AccessoriesPage = lazy(() => import('./components/AccessoriesPage'));
+const ListingDetails = lazy(() => import('./components/ListingDetails'));
 
 const routes = [
   { path: "/login", element: <LoginScreen /> },
@@ -48,7 +49,8 @@ const routes = [
   { path: "/edibles", element: <EdiblesPage /> },
   { path: "/concentrates", element: <ConcentratesPage /> },
   { path: "/vapes", element: <VapesPage /> },
-  { path: "/accessories", element: <AccessoriesPage /> }
+  { path: "/accessories", element: <AccessoriesPage /> },
+  { path: "/listing/:id", element: <ListingDetails /> }
 ];
 
 export default routes;
